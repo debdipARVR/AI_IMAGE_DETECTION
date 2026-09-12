@@ -1,0 +1,76 @@
+{
+  "timestamp": "2026-09-13 01:51:23",
+  "model": "stabilityai/sd-vae-ft-mse",
+  "device": "cpu",
+  "n_samples": {
+    "real": 15,
+    "ai": 15
+  },
+  "clean_metrics": {
+    "real": {
+      "psnr_mean": 33.11104415547682,
+      "psnr_std": 0.138737024565537,
+      "mse_mean": 0.0019551365248238048,
+      "mse_std": 6.242955796990694e-05,
+      "harmonic_spike_mean": 1.1406128192054545
+    },
+    "ai": {
+      "psnr_mean": 36.94291081635907,
+      "psnr_std": 0.071935948540479,
+      "mse_mean": 0.0008087761544932922,
+      "mse_std": 1.3347222005059121e-05,
+      "harmonic_spike_mean": 2.267955183884173
+    },
+    "auroc": 1.0
+  },
+  "perturbation_sweep": [
+    {
+      "condition": "Clean (PNG)",
+      "real_psnr": 33.02545935474318,
+      "real_prob": 0.6844363980568438,
+      "ai_psnr": 36.925839714910765,
+      "ai_prob": 0.880852891675847,
+      "delta_psnr": 3.9003803601675884
+    },
+    {
+      "condition": "JPEG (Q=95)",
+      "real_psnr": 34.309300905316,
+      "real_prob": 0.7139767552503866,
+      "ai_psnr": 36.119950569301096,
+      "ai_prob": 0.8844618547496825,
+      "delta_psnr": 1.810649663985096
+    },
+    {
+      "condition": "JPEG (Q=85)",
+      "real_psnr": 36.05900083272083,
+      "real_prob": 0.7053693740149162,
+      "ai_psnr": 44.261765118791104,
+      "ai_prob": 0.7452156202815954,
+      "delta_psnr": 8.202764286070277
+    },
+    {
+      "condition": "JPEG (Q=75)",
+      "real_psnr": 36.1593834470204,
+      "real_prob": 0.7200494286178184,
+      "ai_psnr": 47.50354437010755,
+      "ai_prob": 0.7712218359524238,
+      "delta_psnr": 11.344160923087145
+    },
+    {
+      "condition": "Resampled (384->512)",
+      "real_psnr": 36.66922605999646,
+      "real_prob": 0.9881587321339693,
+      "ai_psnr": 45.67152878884137,
+      "ai_prob": 1.0,
+      "delta_psnr": 9.00230272884491
+    },
+    {
+      "condition": "Gaussian Blur (r=0.8)",
+      "real_psnr": 37.01203038715507,
+      "real_prob": 0.7262473059680673,
+      "ai_psnr": 44.04508127676533,
+      "ai_prob": 0.8331171583549964,
+      "delta_psnr": 7.033050889610259
+    }
+  ]
+}
