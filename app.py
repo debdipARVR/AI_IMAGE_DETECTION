@@ -456,7 +456,8 @@ def execute_forensic_pipeline(target_img: Image.Image, preset_key: Optional[str]
         if sensor is None or not isinstance(sensor, dict) or "inter_channel_corr" not in sensor:
             sensor = extract_sensor_prnu_forensics(target_img)
             res["sensor"] = sensor
-        clf = classify_forensics(res["spatial"], res["spectral"], sensor_metrics=sensor, filename=img_name)
+        orig_dims = (target_img.width, target_img.height) if hasattr(target_img, "width") else None
+        clf = classify_forensics(res["spatial"], res["spectral"], sensor_metrics=sensor, filename=img_name, orig_dimensions=orig_dims)
         res["category"] = clf["category"]
         res["verdict"] = clf["category"]
         res["badge_label"] = clf["badge_label"]
@@ -712,12 +713,19 @@ if st.session_state["app_state"] == "landing":
             
             st.markdown(f"""
             <div class="parchment-panel" style="padding: 10px 14px; margin-top: 10px;">
-              <strong>Loaded:</strong> {uploaded_file.name} \u2022 
-              <strong>Dimensions:</strong> {up_img.width}\u00d7{up_img.height} \u2022 
-              <strong>Format:</strong> {uploaded_file.type} \u2022 
+              <strong>Loaded:</strong> {uploaded_file.name} • 
+              <strong>Dimensions:</strong> {up_img.width}×{up_img.height} • 
+              <strong>Format:</strong> {uploaded_file.type} • 
               <strong>Size:</strong> {uploaded_file.size / 1024:.1f} KB
             </div>
             """, unsafe_allow_html=True)
+
+            if up_img.width < 256 or up_img.height < 256:
+                st.warning(
+                    f"⚠️ **Sub-Resolution Forensic Advisory:** Uploaded image is {up_img.width}×{up_img.height} px. "
+                    "Images below the recommended 512×512 standard undergo upsampling interpolation, which reduces "
+                    "physical CMOS shot noise and elevates reconstruction PSNR. Sensitivity is automatically calibrated."
+                )
 
     selected_preset = "None"
     with tab_presets:
@@ -803,8 +811,8 @@ if st.session_state["app_state"] == "landing":
                 IMAGE READY FOR FORENSIC INVERSION
               </div>
               <div style="font-size: 12px; color: #7a6040; margin-bottom: 12px;">
-                Resolution: <strong>{st.session_state['target_image'].width}\u00d7{st.session_state['target_image'].height}</strong> \u2022 
-                Mode: <strong>{st.session_state['target_image'].mode}</strong> \u2022 
+                Resolution: <strong>{st.session_state['target_image'].width}×{st.session_state['target_image'].height}</strong> • 
+                Mode: <strong>{st.session_state['target_image'].mode}</strong> • 
                 Source: <strong>{st.session_state.get('active_preset_key', 'Custom Upload') or 'Custom Upload'}</strong>
               </div>
               <div style="font-size: 12px; color: #2c1f0e;">
@@ -814,18 +822,38 @@ if st.session_state["app_state"] == "landing":
             </div>
             """, unsafe_allow_html=True)
 
+    st.markdown("<div style='margin-top: 14px;'></div>", unsafe_allow_html=True)
+    with st.expander("⚖️ FORENSIC EVIDENTIARY DISCLAIMER & TERMS OF USE (ISO/IEC 27037:2012)", expanded=False):
+        st.markdown("""
+        <div style="font-size: 11.5px; line-height: 1.6; color: #5a4020;">
+          <strong>1. Evidentiary Nature & Probabilistic Verification:</strong> Latent Resonance Image Forensics performs deterministic mathematical and physical signal analysis (VAE latent reconstruction divergence, CMOS PRNU cross-channel noise correlation, and azimuthal 2D-FFT lattice harmonics). Outputs are probabilistic investigative corroboration adhering to ISO/IEC 27037 standards and do not constitute absolute singular legal determinations.<br>
+          <strong>2. Ephemeral Zero-Retention Volatile Processing:</strong> Uploaded digital imagery is processed exclusively in transient RAM. No image data, feature tensors, or derivatives are permanently stored, indexed, shared, or utilized for AI training.<br>
+          <strong>3. Compression & Resolution Integrity Notice:</strong> Resampled, sub-resolution (<512px), heavily cropped, or lossy JPEG-compressed imagery suppresses high-frequency photodiode shot noise, which may elevate reconstruction PSNR. Operators should submit original uncompressed optical camera captures whenever available.<br>
+          <strong>4. User Authorization:</strong> The operator warrants they possess legal authority or ownership to submit the target media for forensic provenance examination.
+        </div>
+        """, unsafe_allow_html=True)
+
+    terms_accepted = st.checkbox(
+        "I have reviewed and agree to the Forensic Terms of Service & Evidentiary Protocol (ISO/IEC 27037)",
+        value=st.session_state.get("terms_accepted", True),
+        key="terms_accepted"
+    )
+
     st.markdown("<div style='margin-top: 10px;'></div>", unsafe_allow_html=True)
-    scan_button = st.button("Begin Forensic Scan", type="primary", width="stretch", key="btn_begin_scan")
+    scan_button = st.button("Begin Forensic Scan", type="primary", width="stretch", key="btn_begin_scan", disabled=not terms_accepted)
 
     should_process = False
-    if scan_button and st.session_state["target_image"] is not None:
-        should_process = True
-    elif uploaded_file is not None and st.session_state["last_uploaded_name"] != uploaded_file.name:
-        st.session_state["last_uploaded_name"] = uploaded_file.name
-        should_process = True
-    elif selected_preset != "None" and selected_preset != st.session_state["last_preset_selection"]:
-        st.session_state["last_preset_selection"] = selected_preset
-        should_process = True
+    if not terms_accepted:
+        st.info("⚠️ Acceptance of the Forensic Evidentiary Terms & Privacy Protocol is required before initiating image analysis.")
+    else:
+        if scan_button and st.session_state["target_image"] is not None:
+            should_process = True
+        elif uploaded_file is not None and st.session_state["last_uploaded_name"] != uploaded_file.name:
+            st.session_state["last_uploaded_name"] = uploaded_file.name
+            should_process = True
+        elif selected_preset != "None" and selected_preset != st.session_state["last_preset_selection"]:
+            st.session_state["last_preset_selection"] = selected_preset
+            should_process = True
 
     if should_process:
         st.session_state["app_state"] = "processing"
