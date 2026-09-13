@@ -37,6 +37,7 @@ if SRC_DIR not in sys.path:
 from src.vae_resonance import VAEResonanceEngine
 from src.forensic_classifier import (
     classify_forensics,
+    extract_sensor_prnu_forensics,
     CATEGORY_AUTHENTIC,
     CATEGORY_AI,
     CATEGORY_MANIPULATED,
@@ -431,9 +432,10 @@ def execute_forensic_pipeline(target_img: Image.Image, preset_key: Optional[str]
         engine = get_forensic_engine()
         img_name = st.session_state.get("image_name", "")
         res = engine.analyze(target_img)
+        # Guarantee standalone physical sensor PRNU extraction (independent of engine cache state)
         sensor = res.get("sensor")
-        if sensor is None and hasattr(engine, "compute_sensor_forensics") and "arr_orig" in res:
-            sensor = engine.compute_sensor_forensics(res["arr_orig"])
+        if sensor is None or not isinstance(sensor, dict) or "inter_channel_corr" not in sensor:
+            sensor = extract_sensor_prnu_forensics(target_img)
             res["sensor"] = sensor
         clf = classify_forensics(res["spatial"], res["spectral"], sensor_metrics=sensor, filename=img_name)
         res["category"] = clf["category"]

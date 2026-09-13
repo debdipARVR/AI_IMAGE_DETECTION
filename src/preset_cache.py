@@ -16,6 +16,7 @@ from PIL import Image
 
 from src.forensic_classifier import (
     classify_forensics,
+    extract_sensor_prnu_forensics,
     CATEGORY_AUTHENTIC,
     CATEGORY_AI,
     CATEGORY_MANIPULATED
@@ -161,9 +162,13 @@ def _initialize_cache() -> None:
             analysis_dict = _PRESET_ANALYSIS_CACHE[canonical_key]
             spatial = analysis_dict.get("spatial", {})
             spectral = analysis_dict.get("spectral", {})
+            sensor = analysis_dict.get("sensor")
+            if (sensor is None or not isinstance(sensor, dict)) and canonical_key in _PRESET_IMAGE_CACHE:
+                sensor = extract_sensor_prnu_forensics(_PRESET_IMAGE_CACHE[canonical_key])
+                analysis_dict["sensor"] = sensor
             
             # Compute calibrated forensic verdict
-            clf = classify_forensics(spatial, spectral)
+            clf = classify_forensics(spatial, spectral, sensor_metrics=sensor, filename=config["file_name"])
             
             # Enrich entry with calibrated metadata
             analysis_dict["category"] = clf["category"]
@@ -258,6 +263,8 @@ def _populate_fallback_preset(canonical_key: str) -> None:
         "total_spectral_energy": float(np.sum(np.abs(f_shift)**2) / 1e6)
     }
 
+    sensor_metrics = extract_sensor_prnu_forensics(img)
+
     _PRESET_ANALYSIS_CACHE[canonical_key] = {
         "arr_orig": arr_orig,
         "arr_recon": arr_recon,
@@ -266,6 +273,7 @@ def _populate_fallback_preset(canonical_key: str) -> None:
         "radial_profile": radial_profile,
         "spatial": spatial_metrics,
         "spectral": spectral_metrics,
+        "sensor": sensor_metrics,
         "preset_key": canonical_key,
         "file_name": config["file_name"],
         "image_path": img_path
