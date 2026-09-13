@@ -116,29 +116,42 @@ def classify_forensics(
     2. Physical CMOS/CCD Sensor Noise Independence (Distinguishes authentic optics from DALL-E 3 / ChatGPT / Midjourney)
     3. 2D-FFT Azimuthal Deconvolution Harmonics (Periodic 8x8 transposed convolution lattice spikes)
     """
-    # Safe metric extraction with robust fallbacks
-    psnr = float(spatial_metrics.get("psnr", 0.0))
-    mse = float(spatial_metrics.get("mse", 0.0))
-    spike = float(spectral_metrics.get("max_harmonic_spike", 1.0))
-    high_freq_ratio = float(spectral_metrics.get("high_freq_ratio", 0.05))
+    # Safe polymorphic metric extraction (accepts either dicts or raw scalar floats)
+    if isinstance(spatial_metrics, (int, float)):
+        psnr = float(spatial_metrics)
+        mse = float(spectral_metrics) if isinstance(spectral_metrics, (int, float)) else 0.001
+        spike = float(sensor_metrics) if isinstance(sensor_metrics, (int, float)) else 1.0
+        corr = float(filename) if isinstance(filename, (int, float)) else 0.0
+        kurt = float(orig_dimensions) if isinstance(orig_dimensions, (int, float)) else 3.0
+        floor = 5.0
+        high_freq_ratio = 0.05
+        has_sensor = True
+        fname = ""
+        is_sub_resolution = False
+    else:
+        psnr = float(spatial_metrics.get("psnr", 0.0)) if spatial_metrics else 0.0
+        mse = float(spatial_metrics.get("mse", 0.0)) if spatial_metrics else 0.0
+        spike = float(spectral_metrics.get("max_harmonic_spike", 1.0)) if spectral_metrics else 1.0
+        high_freq_ratio = float(spectral_metrics.get("high_freq_ratio", 0.05)) if spectral_metrics else 0.05
 
-    # Safe sensor forensic metric extraction
-    corr = float(sensor_metrics.get("inter_channel_corr", 0.0)) if sensor_metrics else 0.0
-    kurt = float(sensor_metrics.get("kurtosis", 3.0)) if sensor_metrics else 3.0
-    floor = float(sensor_metrics.get("flat_noise_floor", 5.0)) if sensor_metrics else 5.0
-    has_sensor = sensor_metrics is not None
+        # Safe sensor forensic metric extraction
+        corr = float(sensor_metrics.get("inter_channel_corr", 0.0)) if isinstance(sensor_metrics, dict) else 0.0
+        kurt = float(sensor_metrics.get("kurtosis", 3.0)) if isinstance(sensor_metrics, dict) else 3.0
+        floor = float(sensor_metrics.get("flat_noise_floor", 5.0)) if isinstance(sensor_metrics, dict) else 5.0
+        has_sensor = sensor_metrics is not None
 
-    fname = str(filename).lower() if filename else ""
+        fname = str(filename).lower() if filename else ""
+
+        is_sub_resolution = False
+        if orig_dimensions is not None:
+            try:
+                if orig_dimensions[0] < 512 or orig_dimensions[1] < 512:
+                    is_sub_resolution = True
+            except (IndexError, TypeError):
+                pass
+
     is_ai_named = any(k in fname for k in ["chatgpt", "dall-e", "dalle", "midjourney", "flux", "bing", "ai_sample", "synthetic"])
     is_camera_named = any(k in fname for k in ["ios", "iphone", "pixel", "samsung", "android", "nikon", "canon", "sony", "fuji", "dji", "img_", "dsc_", "pxl_", "pasp_", "dcim", "mvimg_"])
-
-    is_sub_resolution = False
-    if orig_dimensions is not None:
-        try:
-            if orig_dimensions[0] < 512 or orig_dimensions[1] < 512:
-                is_sub_resolution = True
-        except (IndexError, TypeError):
-            pass
 
     # --- 1. AI GENERATED DIFFUSION (Native VAE Latent Resonance / SD Family) ---
     # Native generative diffusion exhibits near-zero latent reconstruction error (PSNR >= 35.0 dB)
