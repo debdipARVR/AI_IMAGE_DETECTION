@@ -1,0 +1,45 @@
+% AAAI 2027 Style File (aaai27.sty)
+% Tailored for AAAI 2027 Demonstration Track submissions
+
+\typeout{Conference Style for AAAI 2027 Demonstration Track -- Released 2026}
+
+% Formatting dimensions
+\setlength\topmargin{-0.25in}
+\setlength\oddsidemargin{-0.25in}
+\setlength\textheight{9.0in}
+\setlength\textwidth{7.0in}
+\setlength\columnsep{0.375in}
+\newlength\titlebox \setlength\titlebox{2.25in}
+\setlength\headheight{0pt}
+\setlength\headsep{0pt}
+\thispagestyle{empty}
+\pagestyle{empty}
+\flushbottom
+\twocolumn
+\sloppy
+
+% Fonts
+\def\normalsize{\@setsize\normalsize{10pt}\xpt\@xpt}
+\def\small{\@setsize\small{9pt}\ixpt\@ixpt}
+\def\footnotesize{\@setsize\footnotesize{8pt}\viiipt\@viiipt}
+\def\scriptsize{\@setsize\scriptsize{7pt}\viipt\@viipt}
+\def\tiny{\@setsize\tiny{6pt}\vipt\@vipt}
+\def\large{\@setsize\large{11pt}\xipt\@xipt}
+\def\Large{\@setsize\Large{12pt}\xiipt\@xiipt}
+\def\LARGE{\@setsize\LARGE{14pt}\xivpt\@xivpt}
+\def\huge{\@setsize\huge{18pt}\xviipt\@xviipt}
+\def\Huge{\@setsize\Huge{22pt}\xxpt\@xxpt}
+
+% Section headings
+\def\section{\@startsection {section}{1}{\z@}{-1.5ex plus
+    -0.5ex minus -.2ex}{1.0ex plus .2ex}{\large\bf\raggedright}}
+\def\subsection{\@startsection{subsection}{2}{\z@}{-1.2ex plus
+    -0.5ex minus -.2ex}{0.8ex plus .2ex}{\normalsize\bf\raggedright}}
+\def\subsubsection{\@startsection{subsubsection}{3}{\z@}{-1.0ex plus
+    -0.5ex minus -.2ex}{0.5ex plus .2ex}{\small\bf\raggedright}}
+
+% Abstract
+\def\abstract{\centerline{\bf Abstract}\vspace{0.5ex}\begin{quote}\small}
+\def\endabstract{\par\end{quote}\vskip 1em}
+
+\endinput

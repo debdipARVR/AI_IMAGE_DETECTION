@@ -1,0 +1,85 @@
+% File: iclr2026_conference.sty
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{iclr2027_conference}[2026/01/01 ICLR 2027 submission package]
+
+\usepackage{times}
+\usepackage{fancyhdr}
+\usepackage{natbib}
+
+% Page dimensions
+\setlength{\paperheight}{11in}
+\setlength{\paperwidth}{8.5in}
+\setlength{\textwidth}{5.5in}
+\setlength{\textheight}{9.0in}
+\setlength{\oddsidemargin}{0.5in}
+\setlength{\evensidemargin}{0.5in}
+\setlength{\topmargin}{-0.5in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{25pt}
+\setlength{\footskip}{30pt}
+\setlength{\marginparwidth}{0pt}
+\setlength{\marginparsep}{0pt}
+
+\def\section{\@startsection {section}{1}{\z@}{-2.0ex plus -0.5ex minus -.2ex}{1.5ex plus 0.3ex minus .2ex}{\large\bf\raggedright}}
+\def\subsection{\@startsection{subsection}{2}{\z@}{-1.8ex plus -0.5ex minus -.2ex}{0.8ex plus .2ex}{\normalsize\bf\raggedright}}
+\def\subsubsection{\@startsection{subsubsection}{3}{\z@}{-1.5ex plus -0.5ex minus -.2ex}{0.5ex plus .2ex}{\normalsize\bf\raggedright}}
+\def\paragraph{\@startsection{paragraph}{4}{\z@}{1.5ex plus 0.5ex minus .2ex}{-1em}{\normalsize\bf}}
+
+\renewenvironment{abstract}%
+{\centerline{\large\bf Abstract}%
+ \vspace{0.5ex}%
+ \begin{quote}%
+ \small}%
+{\par \end{quote}\vskip 1ex}
+
+\def\iclrfinalcopy{\gdef\@iclrfinalcopy{1}}
+\def\iclrworkshopcopy{\gdef\@iclrworkshopcopy{1}}
+
+\def\maketitle{\par
+ \begingroup
+   \def\thefootnote{\fnsymbol{footnote}}
+   \def\@makefnmark{\hbox to 0pt{$^{\@thefnmark}$\hss}}
+   \@maketitle \@thanks
+ \endgroup
+ \setcounter{footnote}{0}
+ \let\maketitle\relax \let\@maketitle\relax
+ \gdef\@thanks{}\gdef\@author{}\gdef\@title{}\let\thanks\relax}
+
+\def\@maketitle{\vbox{\hsize\textwidth
+ \linewidth\hsize \vskip 0.1in \toptitlebar \centering
+ {\LARGE\bf \@title\par}
+ \bottomtitlebar \vskip 0.1in
+ \ifcase 0\@iclrfinalcopy
+   {\def\and{\unskip\enspace{\rm and}\enspace}%
+    \def\And{\end{tabular}\hss \egroup \hskip 1in plus 2fil
+             \bgroup \hsize 5.5in \centering \begin{tabular}[t]{c}\bf}%
+    \def\AND{\end{tabular}\hss\egroup \hfil\hfil\egroup
+             \vskip 0.25in plus 1fil
+             \bgroup \hsize 5.5in \centering \begin{tabular}[t]{c}\bf}
+   \begin{tabular}[t]{c}\bf Anonymous Authors \\
+   Paper under double-blind review at ICLR 2027
+   \end{tabular}}
+ \else
+   {\def\and{\unskip\enspace{\rm and}\enspace}%
+    \def\And{\end{tabular}\hss \egroup \hskip 0.5in plus 2fil
+             \bgroup \centering \begin{tabular}[t]{c}\bf}%
+    \def\AND{\end{tabular}\hss\egroup \hfil\hfil\egroup
+             \vskip 0.25in plus 1fil
+             \bgroup \centering \begin{tabular}[t]{c}\bf}
+   \begin{tabular}[t]{c}\bf \@author \end{tabular}}
+ \fi
+ \vskip 0.3in minus 0.1in}}
+
+\def\toptitlebar{\hrule height4pt\vskip .25in\vskip-\parskip}
+\def\bottomtitlebar{\vskip .29in\vskip-\parskip\hrule height1pt\vskip.09in}
+
+\pagestyle{fancy}
+\fancyhf{}
+\ifcase 0\@iclrfinalcopy
+  \lhead{\small Under review as a conference paper at ICLR 2027}
+\else
+  \lhead{\small Published as a conference paper at ICLR 2027}
+\fi
+\rhead{}
+\cfoot{\thepage}
+\renewcommand{\headrulewidth}{0pt}
