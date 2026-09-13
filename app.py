@@ -680,7 +680,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-col_nav1, col_nav2 = st.columns([3, 2])
+col_nav1, col_nav2 = st.columns([5, 4])
 with col_nav1:
     st.markdown("""
     <div class="nav-brand-container">
@@ -693,7 +693,7 @@ with col_nav1:
     """, unsafe_allow_html=True)
 
 with col_nav2:
-    m_btn1, m_btn2, m_btn3 = st.columns(3)
+    m_btn1, m_btn2, m_btn3, m_btn4 = st.columns([1, 1, 1, 1.3])
     with m_btn1:
         if st.button("Terms", key="nav_terms", width="stretch"):
             show_terms_dialog()
@@ -703,6 +703,8 @@ with col_nav2:
     with m_btn3:
         if st.button("Charter", key="nav_charter", width="stretch"):
             show_charter_dialog()
+    with m_btn4:
+        st.markdown('<a href="https://x.com/debdiparvr" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;height:38px;padding:0 8px;background:var(--color-surface);border:1.2px solid var(--color-border2);border-radius:3px;font-family:\'Cinzel\',serif;font-size:11.5px;font-weight:700;color:var(--color-text);text-decoration:none;box-shadow:0 1px 2px rgba(44,31,14,0.05);gap:4px;"><span style="font-weight:900;">𝕏</span> @debdipARVR</a>', unsafe_allow_html=True)
 
 st.markdown("<hr style='margin: 12px 0 16px 0; border: none; border-top: 1px solid #c9b88a;'>", unsafe_allow_html=True)
 
@@ -723,6 +725,9 @@ if st.session_state["app_state"] == "landing":
       <span class="status-pill status-ready">\u2713 Backbone Active (sd-vae-ft-mse)</span>
       <span class="status-pill status-ready">\U0001f6e1 Ephemeral RAM Mode</span>
       <span class="status-pill status-neutral">\U0001f512 ISO/IEC 27037 Tamper-Proof Ready</span>
+      <a href="https://x.com/debdiparvr" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+        <span class="status-pill status-ready" style="border-color: var(--color-teal); color: var(--color-teal); background: rgba(107, 76, 17, 0.08);">\U0001d54f @debdipARVR</span>
+      </a>
     </div>
     """, unsafe_allow_html=True)
 
@@ -1174,10 +1179,13 @@ if st.session_state["app_state"] == "results" and st.session_state["analysis_res
 # Broadsheet Footer
 st.markdown("<hr style='margin: 28px 0 14px 0; border: none; border-top: 1px solid #c9b88a;'>", unsafe_allow_html=True)
 st.markdown("""
-<div style="text-align: center; font-family: 'Newsreader', Georgia, serif; font-size: 12px; color: #7a6040; padding-bottom: 20px;">
+<div style="text-align: center; font-family: 'Newsreader', Georgia, serif; font-size: 12px; color: #7a6040; padding-bottom: 20px; line-height: 1.8;">
   <span>ScribeMark Latent Resonance Forensics v2.4</span> &bull;
   <span>CERN Zenodo DOI: 10.5281/zenodo.22158286</span> &bull;
-  <span>IEEE Transactions on Information Forensics and Security</span> &bull;
-  <span>Zero Cloud Callbacks \u2022 Ephemeral RAM Pipeline</span>
+  <span>IEEE Transactions on Information Forensics and Security</span><br>
+  <span>Author: <strong>Debdip Bandyopadhyay</strong></span> &bull;
+  <a href="https://x.com/debdiparvr" target="_blank" rel="noopener noreferrer" style="color: #6b4c11; font-weight: 700; text-decoration: none; border-bottom: 1px dotted #6b4c11;"><strong>𝕏 @debdipARVR</strong></a> &bull;
+  <a href="https://github.com/debdipARVR/AI_IMAGE_DETECTION" target="_blank" rel="noopener noreferrer" style="color: #6b4c11; text-decoration: none; border-bottom: 1px dotted #6b4c11;">GitHub Repository</a> &bull;
+  <span>Zero Cloud Callbacks &bull; Ephemeral RAM Pipeline</span>
 </div>
 """, unsafe_allow_html=True)

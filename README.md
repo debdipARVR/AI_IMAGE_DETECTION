@@ -8,10 +8,12 @@
 [![Tests](https://img.shields.io/badge/Tests-95%20Passed-success.svg)]()
 [![Effect Size](https://img.shields.io/badge/Cohen's%20d-6.08%20(Immense)-purple.svg)]()
 [![Streamlit Cloud Live](https://img.shields.io/badge/Streamlit%20Cloud-Live%20App-FF4B4B.svg)](https://scribemarkimage.streamlit.app/)
+[![X Profile](https://img.shields.io/badge/%F0%9D%95%8F-@debdipARVR-000000.svg?logo=x&logoColor=white)](https://x.com/debdiparvr)
 
 > **Fully Open-Source Research & Software Artifact**  
 > *Author*: **Debdip Bandyopadhyay** (Independent Researcher, Kolkata, West Bengal, India; M.Tech, IIT Jodhpur, AI & Data Science)  
 > *Email*: debdip1992@outlook.com  
+> *X (Twitter)*: [@debdipARVR](https://x.com/debdiparvr)  
 > *GitHub*: [https://github.com/debdipARVR/AI_IMAGE_DETECTION](https://github.com/debdipARVR/AI_IMAGE_DETECTION)  
 > *Google Colab GPU Benchmark*: [Open in Colab (N=1000)](https://colab.research.google.com/github/debdipARVR/AI_IMAGE_DETECTION/blob/main/colab/Multi_VAE_Latent_Resonance_Colab.ipynb)  
 > *Hugging Face Benchmark Dataset*: [DebdipCS/Latent-Resonance-AI-Image-Forensics-Benchmark-N100](https://huggingface.co/datasets/DebdipCS/Latent-Resonance-AI-Image-Forensics-Benchmark-N100)  
