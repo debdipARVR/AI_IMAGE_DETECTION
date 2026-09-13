@@ -164,10 +164,13 @@ To evaluate real-world forensic resilience, we implement an automated 5-stage ad
 \subsection{Baseline Clean Benchmark Performance}
 Table~\ref{tab:clean_benchmark} presents the quantitative metrics across the 50 clean native resolution evaluation samples ($N=25$ Real, $N=25$ AI).
 
-\begin{table}[h]
+\begin{table}[t]
 \caption{Quantitative Reconstruction \& Spectral Metrics on Expanded Benchmark ($N=50$)}
 \label{tab:clean_benchmark}
 \centering
+\footnotesize
+\setlength{\tabcolsep}{3.5pt}
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{lccc}
 \toprule
 \textbf{Forensic Metric} & \textbf{Authentic Photo} & \textbf{AI Diffusion} & \textbf{Margin ($\Delta$)} \\
@@ -181,7 +184,8 @@ Significance ($p$-value) & \multicolumn{3}{c}{$p < 1.82 \times 10^{-16}$ (Welch'
 \midrule
 \textbf{Empirical AUROC} & \multicolumn{3}{c}{\textbf{100.00\%} (Zero False Accusations)} \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 The empirical results reveal an unambiguous, statistically significant separation between authentic photography and diffusion synthesis:
@@ -205,10 +209,13 @@ Fig.~\ref{fig:radial_spectrum} illustrates the radial power spectrum comparison.
 
 A core tenet of our research methodology is the active, non-sycophantic interrogation of failure modes. Rather than assuming universal performance, we systematically subjected the Latent Resonance detector to realistic image degradations. Table~\ref{tab:adversarial_stress} details the empirical behavior across the 5 degradation regimes.
 
-\begin{table}[h]
+\begin{table}[t]
 \caption{Adversarial Perturbation Stress-Test Results}
 \label{tab:adversarial_stress}
 \centering
+\footnotesize
+\setlength{\tabcolsep}{3pt}
+\resizebox{\columnwidth}{!}{%
 \begin{tabular}{lcccc}
 \toprule
 \textbf{Perturbation Condition} & \textbf{Real PSNR} & \textbf{AI PSNR} & \textbf{$\Delta\text{PSNR}$} & \textbf{AI Prob} \\
@@ -220,7 +227,8 @@ JPEG ($Q=75$) & $36.16\text{ dB}$ & $47.50\text{ dB}$ & $+11.34\text{ dB}$ & $0.
 Resampled ($384 \to 512$) & $36.67\text{ dB}$ & $45.67\text{ dB}$ & $+9.00\text{ dB}$ & $1.000$ \\
 Gaussian Blur ($\sigma=0.8$) & $37.01\text{ dB}$ & $44.05\text{ dB}$ & $+7.03\text{ dB}$ & $0.833$ \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 \subsection{Physical Interpretation of Compression Dynamics}
