@@ -1,0 +1,1432 @@
+{
+  "dataset_name": "LatentResonance-ImageForensics-N100",
+  "version": "1.0.0",
+  "description": "Benchmark dataset for zero-shot VAE latent reconstruction resonance and 2D-FFT azimuthal spectral forensics",
+  "license": "MIT Open Access",
+  "total_samples": 100,
+  "classes": {
+    "real_photos": {
+      "count": 50,
+      "label": "authentic_optical_camera",
+      "description": "Natural optical camera captures exhibiting stochastic sensor PRNU noise, lens vignetting, natural depth-of-field, and 1/f^alpha smooth power spectral decay."
+    },
+    "ai_synthetic": {
+      "count": 50,
+      "label": "ai_latent_diffusion",
+      "description": "Latent diffusion synthesized images (Stable Diffusion / VAE-based) with structural latent resonance, zero sensor PRNU, and checkerboard upsampling spectral lattice harmonics."
+    }
+  },
+  "perturbations": {
+    "count": 12,
+    "conditions": [
+      "clean",
+      "jpeg_q95",
+      "jpeg_q85",
+      "jpeg_q75",
+      "resampled_bicubic",
+      "gaussian_blur"
+    ]
+  },
+  "samples": [
+    {
+      "id": "real_000",
+      "filename": "real_sample_000.png",
+      "relative_path": "data/real_photos/real_sample_000.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 477174,
+      "sha256": "f5dde62b5c94038dabb1a949c1fa2eac06d9f9c5ac83edf4eb42d07be2678d4a"
+    },
+    {
+      "id": "real_001",
+      "filename": "real_sample_001.png",
+      "relative_path": "data/real_photos/real_sample_001.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 475997,
+      "sha256": "01c2fb80889c1d3bfa0668e35efc5a2a72538dae5a6d06e4c544c99b4d037423"
+    },
+    {
+      "id": "real_002",
+      "filename": "real_sample_002.png",
+      "relative_path": "data/real_photos/real_sample_002.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 475579,
+      "sha256": "eb85e0e9689ec7919f96acd97eb0ccb16ad9010034c45961b9f7cdc6b1462c40"
+    },
+    {
+      "id": "real_003",
+      "filename": "real_sample_003.png",
+      "relative_path": "data/real_photos/real_sample_003.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 479685,
+      "sha256": "867fa3a8b59f43e2c842ea013134fd6ad30c94f2b719b7c29e90a8bc3c22dd8b"
+    },
+    {
+      "id": "real_004",
+      "filename": "real_sample_004.png",
+      "relative_path": "data/real_photos/real_sample_004.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 477658,
+      "sha256": "e86c9fe18101fca28d6f6cae116305fff00437611c3249a56b8a4707669b3e3d"
+    },
+    {
+      "id": "real_005",
+      "filename": "real_sample_005.png",
+      "relative_path": "data/real_photos/real_sample_005.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 477381,
+      "sha256": "a21e5a46ee8494ea609d0e037261a07e8880f5e64e776b51d48ad6eba3a2a822"
+    },
+    {
+      "id": "real_006",
+      "filename": "real_sample_006.png",
+      "relative_path": "data/real_photos/real_sample_006.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 476869,
+      "sha256": "4293b80eb74ba88e830a53fe3801c2cb9dd878b3a30a4b1a0e5b5f7960189b07"
+    },
+    {
+      "id": "real_007",
+      "filename": "real_sample_007.png",
+      "relative_path": "data/real_photos/real_sample_007.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 476294,
+      "sha256": "4089d1232bebde57c0d2885207c24df42e50b7818cd0f8c5e9fbce80b61b4529"
+    },
+    {
+      "id": "real_008",
+      "filename": "real_sample_008.png",
+      "relative_path": "data/real_photos/real_sample_008.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 476894,
+      "sha256": "8911d50c8d8c094fa801622093c02af9243f20fc0890c726e50309cb17534b53"
+    },
+    {
+      "id": "real_009",
+      "filename": "real_sample_009.png",
+      "relative_path": "data/real_photos/real_sample_009.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 475656,
+      "sha256": "021aba3897c9cddb7dbe6097ac49ee517dce0abb10a7e46f93190c85a0dba9d4"
+    },
+    {
+      "id": "real_010",
+      "filename": "real_sample_010.png",
+      "relative_path": "data/real_photos/real_sample_010.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 478378,
+      "sha256": "d0f68f21513a58e10e3b225dc30291adc1b6a8e4aa8a4dacef853dd1c7166afb"
+    },
+    {
+      "id": "real_011",
+      "filename": "real_sample_011.png",
+      "relative_path": "data/real_photos/real_sample_011.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 477010,
+      "sha256": "ed4192ce806603218d48da2e572684434f480e350da185e0063f6cbbdf5e78fc"
+    },
+    {
+      "id": "real_012",
+      "filename": "real_sample_012.png",
+      "relative_path": "data/real_photos/real_sample_012.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 478941,
+      "sha256": "94fbba14853f6635851e57c97fbe4afc17790069e7828c0517097a8fa076b45c"
+    },
+    {
+      "id": "real_013",
+      "filename": "real_sample_013.png",
+      "relative_path": "data/real_photos/real_sample_013.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 478539,
+      "sha256": "35907fe70e086831ba11caa6e3a5356ef918965db57c2d1a0d5bad1b990dbd63"
+    },
+    {
+      "id": "real_014",
+      "filename": "real_sample_014.png",
+      "relative_path": "data/real_photos/real_sample_014.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 476960,
+      "sha256": "c3a73ce8b7bc4a0bed88ac43b335a9ccc2f4f30986f8a2728da7969e9aade9f8"
+    },
+    {
+      "id": "real_015",
+      "filename": "real_sample_015.png",
+      "relative_path": "data/real_photos/real_sample_015.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 471095,
+      "sha256": "3c31440a97f6183eecafb1824660472e6a4636464f608bf13f999b81e89f68b3"
+    },
+    {
+      "id": "real_016",
+      "filename": "real_sample_016.png",
+      "relative_path": "data/real_photos/real_sample_016.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 486008,
+      "sha256": "c008dd3b4a118a75a477f78bf1c8e9661bfb8b7a7fd2662114e2daffa27eb526"
+    },
+    {
+      "id": "real_017",
+      "filename": "real_sample_017.png",
+      "relative_path": "data/real_photos/real_sample_017.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 500714,
+      "sha256": "1fa1bcba083360314cb0e71bfdf503b73cd0557b5fb3cfdd6fd09098d71dc503"
+    },
+    {
+      "id": "real_018",
+      "filename": "real_sample_018.png",
+      "relative_path": "data/real_photos/real_sample_018.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 517780,
+      "sha256": "4a91a923e2ef952316065e6c09ea7d1c01a7099ac06062da5b8c92b5d47c22c3"
+    },
+    {
+      "id": "real_019",
+      "filename": "real_sample_019.png",
+      "relative_path": "data/real_photos/real_sample_019.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 530205,
+      "sha256": "6aeb3cf44b6827de914b59f6ef2da41519f7e85e2bfc3a1e0b57fd9c035291c6"
+    },
+    {
+      "id": "real_020",
+      "filename": "real_sample_020.png",
+      "relative_path": "data/real_photos/real_sample_020.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 488172,
+      "sha256": "48c944b18b79f00bfa10dd8bf77b0402416b9f6391ac74998ae4f406d475dd18"
+    },
+    {
+      "id": "real_021",
+      "filename": "real_sample_021.png",
+      "relative_path": "data/real_photos/real_sample_021.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 494701,
+      "sha256": "81c9244868aa5a1e776dc4e4a6272442326b987058c259401c90a6cd90c079c3"
+    },
+    {
+      "id": "real_022",
+      "filename": "real_sample_022.png",
+      "relative_path": "data/real_photos/real_sample_022.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 507352,
+      "sha256": "c283f564b49766dd36e537e61000f159255720882e12cdb7c978c75d9a688a9c"
+    },
+    {
+      "id": "real_023",
+      "filename": "real_sample_023.png",
+      "relative_path": "data/real_photos/real_sample_023.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 519399,
+      "sha256": "75d5edd27ddfbfa81c8d8d64646ed2e6334de0c04a25ff2ab97c6844261a2441"
+    },
+    {
+      "id": "real_024",
+      "filename": "real_sample_024.png",
+      "relative_path": "data/real_photos/real_sample_024.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 531204,
+      "sha256": "73b43dcd8f3f1fcacc88c169704a51c78f50936664adc9ba66173d8d3617b0f9"
+    },
+    {
+      "id": "real_025",
+      "filename": "real_sample_025.png",
+      "relative_path": "data/real_photos/real_sample_025.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 472244,
+      "sha256": "e97056c9a14b3ea12365446e413c6893a295ff267482d5ceda4375d404a2ed96"
+    },
+    {
+      "id": "real_026",
+      "filename": "real_sample_026.png",
+      "relative_path": "data/real_photos/real_sample_026.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 486724,
+      "sha256": "66bb89d56aa08d2a76f7fffa6037b30ab1afcdb4fb11d8bb6ce9b6fdc73012b8"
+    },
+    {
+      "id": "real_027",
+      "filename": "real_sample_027.png",
+      "relative_path": "data/real_photos/real_sample_027.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 502847,
+      "sha256": "06378826a1280a6e0696796fe0de630991be5f50eecc8af661bbfb28c348ac50"
+    },
+    {
+      "id": "real_028",
+      "filename": "real_sample_028.png",
+      "relative_path": "data/real_photos/real_sample_028.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 517436,
+      "sha256": "fbefadef9559278ab2d9d9b0d1ce98ad725f7552f5c868d8ed1fafa9141d07f2"
+    },
+    {
+      "id": "real_029",
+      "filename": "real_sample_029.png",
+      "relative_path": "data/real_photos/real_sample_029.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 530117,
+      "sha256": "5630114a50fdd79409657ba01f7fadad652bc7d2b4f21f758f8a6ebfcd83f867"
+    },
+    {
+      "id": "real_030",
+      "filename": "real_sample_030.png",
+      "relative_path": "data/real_photos/real_sample_030.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 488344,
+      "sha256": "04df086605b0896054f08a2bc05ce4d5ea3bc0f081bbb32cc8f2c20234d0da0e"
+    },
+    {
+      "id": "real_031",
+      "filename": "real_sample_031.png",
+      "relative_path": "data/real_photos/real_sample_031.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 496426,
+      "sha256": "e7e93d9cba54a85d17b4172fceab50d6f62e98e408eccde338f62918b09f960d"
+    },
+    {
+      "id": "real_032",
+      "filename": "real_sample_032.png",
+      "relative_path": "data/real_photos/real_sample_032.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 510286,
+      "sha256": "bc57b305d238d5a03bde665dda3c11fc8ddd8c3745afbc98ef86f23fb818088b"
+    },
+    {
+      "id": "real_033",
+      "filename": "real_sample_033.png",
+      "relative_path": "data/real_photos/real_sample_033.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 519546,
+      "sha256": "c3614add21c0279c5aa8c86433c579cda73d96709748a1c8fc2be6e87b2ee773"
+    },
+    {
+      "id": "real_034",
+      "filename": "real_sample_034.png",
+      "relative_path": "data/real_photos/real_sample_034.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 531424,
+      "sha256": "3fe5a23173edf06e30fb741f900d83d1eb4d9319706d3c2bcde48a9ade3cbd0a"
+    },
+    {
+      "id": "real_035",
+      "filename": "real_sample_035.png",
+      "relative_path": "data/real_photos/real_sample_035.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 468223,
+      "sha256": "48c068ea313c45ea3022ac8cb1731c28cc716cd7ac0d5b6c579af212be32a4ac"
+    },
+    {
+      "id": "real_036",
+      "filename": "real_sample_036.png",
+      "relative_path": "data/real_photos/real_sample_036.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 484644,
+      "sha256": "ea938cd82135ba31063426ac9a253ecb2aa0cf1c821b221ec23601ab30f99e54"
+    },
+    {
+      "id": "real_037",
+      "filename": "real_sample_037.png",
+      "relative_path": "data/real_photos/real_sample_037.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 503721,
+      "sha256": "0471e5ed6e606c06670e7894388fadfd4777817b97a903160c3953de0645381d"
+    },
+    {
+      "id": "real_038",
+      "filename": "real_sample_038.png",
+      "relative_path": "data/real_photos/real_sample_038.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 518320,
+      "sha256": "3d0d017d4211fabb21e09af0dad327b0ce04a9912f9c4aa6962b964dd553ac1b"
+    },
+    {
+      "id": "real_039",
+      "filename": "real_sample_039.png",
+      "relative_path": "data/real_photos/real_sample_039.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 529345,
+      "sha256": "697a7cb4c51c04e45e16e4252619b0931834320a8b1e7763fcc03adb7f56d060"
+    },
+    {
+      "id": "real_040",
+      "filename": "real_sample_040.png",
+      "relative_path": "data/real_photos/real_sample_040.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 490094,
+      "sha256": "d08f7523ef8a895cf1593243d7bf1f6b4d8d86607c2bce7f479f9755bb55a96d"
+    },
+    {
+      "id": "real_041",
+      "filename": "real_sample_041.png",
+      "relative_path": "data/real_photos/real_sample_041.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 494999,
+      "sha256": "0601af418a020b28c0312d836a3c81b6e61adbc7dd7e4fa82898c29a8461356a"
+    },
+    {
+      "id": "real_042",
+      "filename": "real_sample_042.png",
+      "relative_path": "data/real_photos/real_sample_042.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 508249,
+      "sha256": "7f507517953935003a0597dbed18cac2d0059a96d07ef2a40e2f9320e49d1413"
+    },
+    {
+      "id": "real_043",
+      "filename": "real_sample_043.png",
+      "relative_path": "data/real_photos/real_sample_043.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 520395,
+      "sha256": "680f3aa653ce984223067ed500e0e5750e4aad7b3064244060239bbf709ab67d"
+    },
+    {
+      "id": "real_044",
+      "filename": "real_sample_044.png",
+      "relative_path": "data/real_photos/real_sample_044.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 531830,
+      "sha256": "267f2c7da3b59018509854b26095312ea0e90783f2c9f58a81c73be904a4c26e"
+    },
+    {
+      "id": "real_045",
+      "filename": "real_sample_045.png",
+      "relative_path": "data/real_photos/real_sample_045.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 471892,
+      "sha256": "10877dca7fc8e800ad3e382ebaa6a70591b87770c60322ee5cf298a9c4432b48"
+    },
+    {
+      "id": "real_046",
+      "filename": "real_sample_046.png",
+      "relative_path": "data/real_photos/real_sample_046.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 485734,
+      "sha256": "8cf705e03a611cac242667c9124a6c03de770df425fd4491051e7a923f8e0abe"
+    },
+    {
+      "id": "real_047",
+      "filename": "real_sample_047.png",
+      "relative_path": "data/real_photos/real_sample_047.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 501209,
+      "sha256": "ca0ab9ea01aa7804f26823fce4310b5fe0c08cffddbaa45e6713c542d471ae39"
+    },
+    {
+      "id": "real_048",
+      "filename": "real_sample_048.png",
+      "relative_path": "data/real_photos/real_sample_048.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 515889,
+      "sha256": "d0d7b6a188fe546761095dcf5990d534b1dfe7d3026109f5807f3ab0eedf2a44"
+    },
+    {
+      "id": "real_049",
+      "filename": "real_sample_049.png",
+      "relative_path": "data/real_photos/real_sample_049.png",
+      "ground_truth": "real",
+      "class_label": "authentic_optical_camera",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 530843,
+      "sha256": "9df454c16a5afcda60182ba1c6ba36f4b2273e60a773ae3923da62f12c751e2f"
+    },
+    {
+      "id": "ai_000",
+      "filename": "ai_sample_000.png",
+      "relative_path": "data/ai_synthetic/ai_sample_000.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 374772,
+      "sha256": "3d27b93d4542d2f2e60f17dcdaecb92f36bc424e76e6437877bf34b161f9ea77"
+    },
+    {
+      "id": "ai_001",
+      "filename": "ai_sample_001.png",
+      "relative_path": "data/ai_synthetic/ai_sample_001.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 372456,
+      "sha256": "585a16a229eb48b3af5d4a7504b5cd7e823f2a0a182b8797e9da5f897671112c"
+    },
+    {
+      "id": "ai_002",
+      "filename": "ai_sample_002.png",
+      "relative_path": "data/ai_synthetic/ai_sample_002.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 371844,
+      "sha256": "7df8d8651d44dc9a96aac47ba22c7e32d1985cbb36c4daf4e0fbf8b4be0de26b"
+    },
+    {
+      "id": "ai_003",
+      "filename": "ai_sample_003.png",
+      "relative_path": "data/ai_synthetic/ai_sample_003.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 371076,
+      "sha256": "21220aaf7bee690596c69845a9e17bd186b39ae4a66dd0dd5099e16cbbdbc7d7"
+    },
+    {
+      "id": "ai_004",
+      "filename": "ai_sample_004.png",
+      "relative_path": "data/ai_synthetic/ai_sample_004.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 369597,
+      "sha256": "8c8506424033c1aadac724af3d4b8f49b2c7a3fe60f900f80cfa7b37959e7978"
+    },
+    {
+      "id": "ai_005",
+      "filename": "ai_sample_005.png",
+      "relative_path": "data/ai_synthetic/ai_sample_005.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 372401,
+      "sha256": "cefea6f69e448e95e2f6066b6065eb9cecddbfc4bf1e898b3691e8a11e186eee"
+    },
+    {
+      "id": "ai_006",
+      "filename": "ai_sample_006.png",
+      "relative_path": "data/ai_synthetic/ai_sample_006.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 367979,
+      "sha256": "2f20b0c6cf4163211c78a2e3ce93bb1e38568da109b6c54f4739aaa0fc854fdd"
+    },
+    {
+      "id": "ai_007",
+      "filename": "ai_sample_007.png",
+      "relative_path": "data/ai_synthetic/ai_sample_007.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 371303,
+      "sha256": "5daeb4ec749f4e4899f549777d00fbea05e4e616642c92c5f37de8b7cbb53c55"
+    },
+    {
+      "id": "ai_008",
+      "filename": "ai_sample_008.png",
+      "relative_path": "data/ai_synthetic/ai_sample_008.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 370198,
+      "sha256": "21c1f338b6a21e2b18d1197367ba8da42b5206bb3d3a9485aef07c5310619766"
+    },
+    {
+      "id": "ai_009",
+      "filename": "ai_sample_009.png",
+      "relative_path": "data/ai_synthetic/ai_sample_009.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 372031,
+      "sha256": "2788506e70f3230324ed5960d6ed78138004d7b0881ad3df3520314a9f47cbf5"
+    },
+    {
+      "id": "ai_010",
+      "filename": "ai_sample_010.png",
+      "relative_path": "data/ai_synthetic/ai_sample_010.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 374551,
+      "sha256": "9594457b745319d172e56f6fcc6b7a50aa1bd726004d864898bdec917635e823"
+    },
+    {
+      "id": "ai_011",
+      "filename": "ai_sample_011.png",
+      "relative_path": "data/ai_synthetic/ai_sample_011.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 372107,
+      "sha256": "2a22403e36f4ae3c119cf051b6542064f3edd363b305949bf3ed2e1217341a99"
+    },
+    {
+      "id": "ai_012",
+      "filename": "ai_sample_012.png",
+      "relative_path": "data/ai_synthetic/ai_sample_012.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 374228,
+      "sha256": "b55cf173bd92b54e844e6593db3e1dc40cc07b922fe1bb66a2afd4ca001c0233"
+    },
+    {
+      "id": "ai_013",
+      "filename": "ai_sample_013.png",
+      "relative_path": "data/ai_synthetic/ai_sample_013.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 370790,
+      "sha256": "8d937c80fe3173eae3799a755f6fc08b6f92a44c0798536854a502b72333039a"
+    },
+    {
+      "id": "ai_014",
+      "filename": "ai_sample_014.png",
+      "relative_path": "data/ai_synthetic/ai_sample_014.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 374628,
+      "sha256": "e305444bef7b4f8ad7b742230e52f68b57f0b32bb1bdfa9bb5de1b23301880a6"
+    },
+    {
+      "id": "ai_015",
+      "filename": "ai_sample_015.png",
+      "relative_path": "data/ai_synthetic/ai_sample_015.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 410105,
+      "sha256": "3f6d9761593eac9d7a80c885ba7e764fea43b5f38d39ef7f7e23d2b965584d47"
+    },
+    {
+      "id": "ai_016",
+      "filename": "ai_sample_016.png",
+      "relative_path": "data/ai_synthetic/ai_sample_016.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 396484,
+      "sha256": "25dc61ca96c3614209440b86f3f1b275a1f13cdaf191d5bc3d14aa6c4a1a4e04"
+    },
+    {
+      "id": "ai_017",
+      "filename": "ai_sample_017.png",
+      "relative_path": "data/ai_synthetic/ai_sample_017.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 380733,
+      "sha256": "a5747db2d4fa87b1effa7bbf8576f77e8a6eeb66a549d9ac6b998fe6ca1039ba"
+    },
+    {
+      "id": "ai_018",
+      "filename": "ai_sample_018.png",
+      "relative_path": "data/ai_synthetic/ai_sample_018.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 363922,
+      "sha256": "59f8e7fbbe7c7918ff97a0f0f662db561b68b6fd9aac19d20db9074827afe8a3"
+    },
+    {
+      "id": "ai_019",
+      "filename": "ai_sample_019.png",
+      "relative_path": "data/ai_synthetic/ai_sample_019.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 354166,
+      "sha256": "b3a3974ebf1d5b5640e202111bd0436cf71ae7c80c5fa778b77820bf679dc2ca"
+    },
+    {
+      "id": "ai_020",
+      "filename": "ai_sample_020.png",
+      "relative_path": "data/ai_synthetic/ai_sample_020.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 354158,
+      "sha256": "7ad8941caa794d6f04da79c568f428e8f873b836ef5710e73819bfe996956fe9"
+    },
+    {
+      "id": "ai_021",
+      "filename": "ai_sample_021.png",
+      "relative_path": "data/ai_synthetic/ai_sample_021.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 357777,
+      "sha256": "032d22201d2ceafbbccbfc1ceec56be6fb0173621ceee108ace314ed95e8bd49"
+    },
+    {
+      "id": "ai_022",
+      "filename": "ai_sample_022.png",
+      "relative_path": "data/ai_synthetic/ai_sample_022.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 375955,
+      "sha256": "1fc9001d196fe8692ec4589d6b3df4ef953be1e6d4210779f59d071591f5d1c2"
+    },
+    {
+      "id": "ai_023",
+      "filename": "ai_sample_023.png",
+      "relative_path": "data/ai_synthetic/ai_sample_023.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 391210,
+      "sha256": "462b13c270a830cf185085519a47d1b902aafb2bf361ef86d4dacfe264849601"
+    },
+    {
+      "id": "ai_024",
+      "filename": "ai_sample_024.png",
+      "relative_path": "data/ai_synthetic/ai_sample_024.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 403265,
+      "sha256": "27a9e1758e1e61f843cd61fb10f0f6ff4850aa750412032d4764bf282cc68d3e"
+    },
+    {
+      "id": "ai_025",
+      "filename": "ai_sample_025.png",
+      "relative_path": "data/ai_synthetic/ai_sample_025.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 413997,
+      "sha256": "6d938386d2dcd3e9a6c80422f4d7903548487bec102d295a82594262f2cea464"
+    },
+    {
+      "id": "ai_026",
+      "filename": "ai_sample_026.png",
+      "relative_path": "data/ai_synthetic/ai_sample_026.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 422586,
+      "sha256": "2701bed6d091589e8948147b8a53427c2c08f58f5e4ed51b15e2f7564f9ad6fc"
+    },
+    {
+      "id": "ai_027",
+      "filename": "ai_sample_027.png",
+      "relative_path": "data/ai_synthetic/ai_sample_027.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 422302,
+      "sha256": "b8bfd6b18d3d8de23df4095b18b7e9534230120b495bed0ed3ebeb9e67aeef0c"
+    },
+    {
+      "id": "ai_028",
+      "filename": "ai_sample_028.png",
+      "relative_path": "data/ai_synthetic/ai_sample_028.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 421438,
+      "sha256": "67e502c91c524c1b6dea8520539bb597db27adf0343f1db261cf64e34c15cc7c"
+    },
+    {
+      "id": "ai_029",
+      "filename": "ai_sample_029.png",
+      "relative_path": "data/ai_synthetic/ai_sample_029.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 421151,
+      "sha256": "9a3f45ff4891c66236acde97078f274bfb9c84882969afb2a07561d17e8798eb"
+    },
+    {
+      "id": "ai_030",
+      "filename": "ai_sample_030.png",
+      "relative_path": "data/ai_synthetic/ai_sample_030.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 410843,
+      "sha256": "a8fac99c046b4b7b00bee8358a9a9b30fb69347e57dc19899ab2d0a6047fe8b4"
+    },
+    {
+      "id": "ai_031",
+      "filename": "ai_sample_031.png",
+      "relative_path": "data/ai_synthetic/ai_sample_031.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 405535,
+      "sha256": "aa705fc709857fb9636d342e7a803354d38cc54689ed5ace27c08b0a7e2e57c6"
+    },
+    {
+      "id": "ai_032",
+      "filename": "ai_sample_032.png",
+      "relative_path": "data/ai_synthetic/ai_sample_032.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 395797,
+      "sha256": "77ca9d9aac470ca3d3acbc5f3709f82deff661e2031e477341e70ad70ec73aa1"
+    },
+    {
+      "id": "ai_033",
+      "filename": "ai_sample_033.png",
+      "relative_path": "data/ai_synthetic/ai_sample_033.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 376230,
+      "sha256": "8995d603e1e273aaf8a512ed30f7bfb2feb0d450a4c24d997e2e543b0f8a409c"
+    },
+    {
+      "id": "ai_034",
+      "filename": "ai_sample_034.png",
+      "relative_path": "data/ai_synthetic/ai_sample_034.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 357443,
+      "sha256": "1fef8d9c8de6d5c2920f83908866846ddf8cff1cb087c99cea420a73ab57cd6f"
+    },
+    {
+      "id": "ai_035",
+      "filename": "ai_sample_035.png",
+      "relative_path": "data/ai_synthetic/ai_sample_035.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 355054,
+      "sha256": "34cd122180c01e53e627337349d6ef7bbe7a2cb320b3493f156d16dbb41230b4"
+    },
+    {
+      "id": "ai_036",
+      "filename": "ai_sample_036.png",
+      "relative_path": "data/ai_synthetic/ai_sample_036.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 354544,
+      "sha256": "6713f122c1c966b5ea34826be72fca249c2303430ff56233258f3d23c6862d3a"
+    },
+    {
+      "id": "ai_037",
+      "filename": "ai_sample_037.png",
+      "relative_path": "data/ai_synthetic/ai_sample_037.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 365474,
+      "sha256": "01b4badc539e9737500fb0c454974ff68b456d4e19256646a10912b4867fc923"
+    },
+    {
+      "id": "ai_038",
+      "filename": "ai_sample_038.png",
+      "relative_path": "data/ai_synthetic/ai_sample_038.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 385146,
+      "sha256": "db193302302e6c021c9a3572fb2d49ab1ae84be484c033756ce8cb69ace530fc"
+    },
+    {
+      "id": "ai_039",
+      "filename": "ai_sample_039.png",
+      "relative_path": "data/ai_synthetic/ai_sample_039.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 400134,
+      "sha256": "91b457365ea7d71ff00f6df997675a1b1d2f5da8de0b468001dd379679331b43"
+    },
+    {
+      "id": "ai_040",
+      "filename": "ai_sample_040.png",
+      "relative_path": "data/ai_synthetic/ai_sample_040.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 405640,
+      "sha256": "74eec7ec7d96cc6cf07799941fb7830673352097c55a8d3aecda0be9f3e22da2"
+    },
+    {
+      "id": "ai_041",
+      "filename": "ai_sample_041.png",
+      "relative_path": "data/ai_synthetic/ai_sample_041.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 414733,
+      "sha256": "435ced4c36c60c366fabe79df33c07c4692d9cb7539d0c08e8a80a65760b5f36"
+    },
+    {
+      "id": "ai_042",
+      "filename": "ai_sample_042.png",
+      "relative_path": "data/ai_synthetic/ai_sample_042.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 418100,
+      "sha256": "64cd7a25e65cc69eea0ac1180ceb03544b31a6a4f0614baf00c3c73eefbc0747"
+    },
+    {
+      "id": "ai_043",
+      "filename": "ai_sample_043.png",
+      "relative_path": "data/ai_synthetic/ai_sample_043.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 419432,
+      "sha256": "fe7f83612c8e18d9f63c1c0d0ee0447ab27937419c9f6e675c0d56b63d51ecaf"
+    },
+    {
+      "id": "ai_044",
+      "filename": "ai_sample_044.png",
+      "relative_path": "data/ai_synthetic/ai_sample_044.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 419780,
+      "sha256": "dd7ba3aa5d0243a36f5d147128df3df1a02f3b26eb532fff9cd63eccd90ed4c0"
+    },
+    {
+      "id": "ai_045",
+      "filename": "ai_sample_045.png",
+      "relative_path": "data/ai_synthetic/ai_sample_045.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 415353,
+      "sha256": "2458c1df7a5787a0510c6dd9030068f6eda689b4c2e97872f4c61fae262a145a"
+    },
+    {
+      "id": "ai_046",
+      "filename": "ai_sample_046.png",
+      "relative_path": "data/ai_synthetic/ai_sample_046.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 412345,
+      "sha256": "04c2657a5ccb97a6dcb27f9d2f266b8ceec9cb5d13d8b7d6b0b6fe01c4325aac"
+    },
+    {
+      "id": "ai_047",
+      "filename": "ai_sample_047.png",
+      "relative_path": "data/ai_synthetic/ai_sample_047.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 402728,
+      "sha256": "e1dbcbcbc0feba5d7bb0ff90649e924a6fd118baaafdeceee5672b6dd5036188"
+    },
+    {
+      "id": "ai_048",
+      "filename": "ai_sample_048.png",
+      "relative_path": "data/ai_synthetic/ai_sample_048.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 388917,
+      "sha256": "e107baf398a10186a6efcda467ea0e5cfc23403de59ae8bb9b274d82cb643581"
+    },
+    {
+      "id": "ai_049",
+      "filename": "ai_sample_049.png",
+      "relative_path": "data/ai_synthetic/ai_sample_049.png",
+      "ground_truth": "ai",
+      "class_label": "ai_latent_diffusion",
+      "resolution": [
+        512,
+        512
+      ],
+      "color_mode": "RGB",
+      "file_size_bytes": 372386,
+      "sha256": "0e42a93444074815f6afab90dcc2ef42be1cb3854562e5814e358cbe738cfeda"
+    }
+  ]
+}
