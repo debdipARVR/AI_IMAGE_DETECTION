@@ -355,7 +355,7 @@ if hasattr(st, "dialog"):
         2. **Scientific Safe Harbor**: Provenance determinations are calibrated mathematical estimations based on deterministic autoencoder reconstruction errors and 2D-FFT periodic lattice peak analysis.
         3. **Non-Destructive Inspection**: The original bitstream remains unaltered throughout the 4-pass forensic pipeline.
         """)
-        if st.button("I Acknowledge & Accept Terms", key="btn_accept_terms", width="stretch"):
+        if st.button("I Acknowledge & Accept Terms", key="btn_accept_terms", use_container_width=True):
             st.session_state["terms_accepted"] = True
             st.rerun()
 
@@ -680,7 +680,7 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
-col_nav1, col_nav2 = st.columns([5, 4])
+col_nav1, m_btn1, m_btn2, m_btn3, m_btn4 = st.columns([5, 1, 1, 1, 1.3])
 with col_nav1:
     st.markdown("""
     <div class="nav-brand-container">
@@ -692,19 +692,17 @@ with col_nav1:
     </div>
     """, unsafe_allow_html=True)
 
-with col_nav2:
-    m_btn1, m_btn2, m_btn3, m_btn4 = st.columns([1, 1, 1, 1.3])
-    with m_btn1:
-        if st.button("Terms", key="nav_terms", width="stretch"):
-            show_terms_dialog()
-    with m_btn2:
-        if st.button("Guide", key="nav_guide", width="stretch"):
-            show_guide_dialog()
-    with m_btn3:
-        if st.button("Charter", key="nav_charter", width="stretch"):
-            show_charter_dialog()
-    with m_btn4:
-        st.markdown('<a href="https://x.com/debdiparvr" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;height:38px;padding:0 8px;background:var(--color-surface);border:1.2px solid var(--color-border2);border-radius:3px;font-family:\'Cinzel\',serif;font-size:11.5px;font-weight:700;color:var(--color-text);text-decoration:none;box-shadow:0 1px 2px rgba(44,31,14,0.05);gap:4px;"><span style="font-weight:900;">𝕏</span> @debdipARVR</a>', unsafe_allow_html=True)
+with m_btn1:
+    if st.button("Terms", key="nav_terms", use_container_width=True):
+        show_terms_dialog()
+with m_btn2:
+    if st.button("Guide", key="nav_guide", use_container_width=True):
+        show_guide_dialog()
+with m_btn3:
+    if st.button("Charter", key="nav_charter", use_container_width=True):
+        show_charter_dialog()
+with m_btn4:
+    st.markdown('<a href="https://x.com/debdiparvr" target="_blank" rel="noopener noreferrer" style="display:flex;align-items:center;justify-content:center;height:38px;padding:0 8px;background:var(--color-surface);border:1.2px solid var(--color-border2);border-radius:3px;font-family:\'Cinzel\',serif;font-size:11.5px;font-weight:700;color:var(--color-text);text-decoration:none;box-shadow:0 1px 2px rgba(44,31,14,0.05);gap:4px;"><span style="font-weight:900;">𝕏</span> @debdipARVR</a>', unsafe_allow_html=True)
 
 st.markdown("<hr style='margin: 12px 0 16px 0; border: none; border-top: 1px solid #c9b88a;'>", unsafe_allow_html=True)
 
@@ -774,7 +772,7 @@ if st.session_state["app_state"] == "landing":
               <div class="preset-desc">Nikon D850 raw CMOS sensor capture (real_sample_000.png). Natural sensor PRNU grain; high spatial divergence.</div>
             </div>
             """, unsafe_allow_html=True)
-            if st.button("Load Authentic Photo", key="btn_pre_auth", width="stretch"):
+            if st.button("Load Authentic Photo", key="btn_pre_auth", use_container_width=True):
                 p_img, _ = load_preset_sample("authentic_camera")
                 st.session_state["target_image"] = p_img
                 st.session_state["image_name"] = "real_sample_000.png"
@@ -787,7 +785,7 @@ if st.session_state["app_state"] == "landing":
               <div class="preset-desc">SDXL generative diffusion synthesis (ai_sample_000.png). High VAE latent resonance; 8x8 deconvolution lattice peaks.</div>
             </div>
             """, unsafe_allow_html=True)
-            if st.button("Load AI Synthetic", key="btn_pre_ai", width="stretch"):
+            if st.button("Load AI Synthetic", key="btn_pre_ai", use_container_width=True):
                 p_img, _ = load_preset_sample("ai_diffusion")
                 st.session_state["target_image"] = p_img
                 st.session_state["image_name"] = "ai_sample_000.png"
@@ -800,7 +798,7 @@ if st.session_state["app_state"] == "landing":
               <div class="preset-desc">JPEG Q75 lossy re-encoding (real_sample_000_jpeg_q75.jpg). High-frequency attenuation; compression blocking.</div>
             </div>
             """, unsafe_allow_html=True)
-            if st.button("Load Perturbation", key="btn_pre_pert", width="stretch"):
+            if st.button("Load Perturbation", key="btn_pre_pert", use_container_width=True):
                 p_img, _ = load_preset_sample("compressed_perturbed")
                 st.session_state["target_image"] = p_img
                 st.session_state["image_name"] = "real_sample_000_jpeg_q75.jpg"
@@ -838,7 +836,7 @@ if st.session_state["app_state"] == "landing":
         st.markdown("<div style='margin-top: 14px;'></div>", unsafe_allow_html=True)
         c_pv1, c_pv2 = st.columns([1, 3])
         with c_pv1:
-            st.image(st.session_state["target_image"], caption=f"Active: {st.session_state['image_name']}", width="stretch")
+            st.image(st.session_state["target_image"], caption=f"Active: {st.session_state['image_name']}", use_container_width=True)
         with c_pv2:
             st.markdown(f"""
             <div class="parchment-panel">
@@ -875,7 +873,7 @@ if st.session_state["app_state"] == "landing":
     )
 
     st.markdown("<div style='margin-top: 10px;'></div>", unsafe_allow_html=True)
-    scan_button = st.button("Begin Forensic Scan", type="primary", width="stretch", key="btn_begin_scan", disabled=not terms_accepted)
+    scan_button = st.button("Begin Forensic Scan", type="primary", use_container_width=True, key="btn_begin_scan", disabled=not terms_accepted)
 
     should_process = False
     if not terms_accepted:
@@ -929,7 +927,7 @@ if st.session_state["app_state"] == "results" and st.session_state["analysis_res
         </div>
         """, unsafe_allow_html=True)
     with col_act2:
-        if st.button("New Forensic Scan", key="btn_reset_scan", width="stretch"):
+        if st.button("New Forensic Scan", key="btn_reset_scan", use_container_width=True):
             st.session_state["app_state"] = "landing"
             st.session_state["target_image"] = None
             st.session_state["analysis_results"] = None
@@ -944,7 +942,7 @@ if st.session_state["app_state"] == "results" and st.session_state["analysis_res
             file_name=f"Forensic_Certificate_{evidence_data['evidence_identification']['case_id']}.pdf",
             mime="application/pdf",
             key="btn_download_pdf_top",
-            width="stretch"
+            use_container_width=True
         )
 
     st.markdown("<div style='margin-top: 10px;'></div>", unsafe_allow_html=True)
@@ -1035,10 +1033,10 @@ if st.session_state["app_state"] == "results" and st.session_state["analysis_res
         col_img1, col_img2 = st.columns(2)
         with col_img1:
             orig_disp = ((res["arr_orig"] + 1.0) * 0.5).clip(0, 1)
-            st.image(orig_disp, caption="Original Input Image (x)", width="stretch")
+            st.image(orig_disp, caption="Original Input Image (x)", use_container_width=True)
         with col_img2:
             recon_disp = ((res["arr_recon"] + 1.0) * 0.5).clip(0, 1)
-            st.image(recon_disp, caption=f"Deterministic VAE Reconstruction (x\u0302) \u2022 PSNR: {psnr_val:.2f} dB", width="stretch")
+            st.image(recon_disp, caption=f"Deterministic VAE Reconstruction (x\u0302) \u2022 PSNR: {psnr_val:.2f} dB", use_container_width=True)
 
         st.markdown("<div style='margin-top: 14px;'></div>", unsafe_allow_html=True)
         st.markdown("<div style='font-family: Cinzel; font-size: 12px; font-weight: 700; color: #7a6040; margin-bottom: 8px;'>SPATIAL RESIDUAL ERROR HEATMAP |\u0394x| = |x - x\u0302|</div>", unsafe_allow_html=True)
@@ -1070,7 +1068,7 @@ if st.session_state["app_state"] == "results" and st.session_state["analysis_res
         st.image(
             heatmap_pil,
             caption=f"Spatial Residual Heatmap |\u0394x| ({colormap_sel.upper()} Colormap \u2022 {gain_val:.1f}x Gain \u2022 MSE: {mse_val:.6f})",
-            width="stretch"
+            use_container_width=True
         )
 
         st.markdown("""
@@ -1091,7 +1089,7 @@ if st.session_state["app_state"] == "results" and st.session_state["analysis_res
             st.image(
                 annotated_fft,
                 caption=f"Centered 2D-FFT Residual Spectrum |F(\u0394x)|\u00b2 \u2022 Annotated 8x8 Harmonics (Spike Ratio: {spike_val:.2f}x)",
-                width="stretch"
+                use_container_width=True
             )
         with col_fft_meta:
             st.markdown(f"""
@@ -1119,7 +1117,7 @@ if st.session_state["app_state"] == "results" and st.session_state["analysis_res
         
         is_ai_sample = (category == CATEGORY_AI)
         radial_fig = create_parchment_radial_plot(res["radial_profile"], is_ai=is_ai_sample)
-        st.plotly_chart(radial_fig, width="stretch")
+        st.plotly_chart(radial_fig, use_container_width=True)
 
         st.markdown(r"""
         <div style="font-size: 12.5px; color: #7a6040; line-height: 1.5; margin-top: 4px;">
@@ -1173,7 +1171,7 @@ if st.session_state["app_state"] == "results" and st.session_state["analysis_res
             file_name=f"Forensic_Certificate_{m_ident['case_id']}.pdf",
             mime="application/pdf",
             key="btn_download_pdf_tab4",
-            width="stretch"
+            use_container_width=True
         )
 
 # Broadsheet Footer
