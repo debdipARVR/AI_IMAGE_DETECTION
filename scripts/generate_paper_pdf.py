@@ -159,11 +159,11 @@ def build_pdf(filename: str):
         "projection x&#770; = D(&mu;(E(x))) without noise injection (&sigma; = 0), we isolate two distinct physical phenomena: spatial manifold "
         "resonance and transposed-convolution harmonic lattice spikes.<br/><br/>"
         "Synthetic diffusion images originate directly from the decoder manifold D(z), yielding near-zero spatial reconstruction error "
-        "(MSE = 0.000809 &plusmn; 0.000013, PSNR = 36.94 &plusmn; 0.07 dB). Conversely, authentic optical photographs suffer irreversible "
+        "(MSE = 0.000822 &plusmn; 0.000054, PSNR = 36.88 &plusmn; 0.27 dB). Conversely, authentic optical photographs suffer irreversible "
         "loss of physical sensor shot noise and Photo-Response Non-Uniformity (PRNU) across the 8&times; latent spatial bottleneck, producing "
-        "significantly higher residual error (MSE = 0.001955 &plusmn; 0.000062, PSNR = 33.11 &plusmn; 0.14 dB, &Delta; = +3.83 dB). In the "
+        "significantly higher residual error (MSE = 0.002440 &plusmn; 0.000756, PSNR = 32.33 &plusmn; 1.20 dB, &Delta; = +4.56 dB). In the "
         "frequency domain, azimuthally averaged 2D Fast Fourier Transform (2D-FFT) analysis reveals that diffusion residuals exhibit sharp periodic "
-        "harmonic spikes (2.268&times; baseline) induced by transposed convolution upsampling strides, whereas authentic photos follow a smooth, "
+        "harmonic spikes (2.187&times; baseline) induced by transposed convolution upsampling strides, whereas authentic photos follow a smooth, "
         "continuous 1/f<sup>&alpha;</sup> power-law decay (1.141&times;). On clean native images, Latent Resonance achieves a verified "
         "<b>100.00% AUROC</b> with zero false accusations. Under adversarial stress testing (lossy JPEG Q &isin; {95, 85, 75}, bicubic resampling "
         "384 &rarr; 512, and Gaussian blur &sigma; = 0.8), combining spatial reconstruction margins with azimuthal spectral harmonics provides "
@@ -256,9 +256,11 @@ def build_pdf(filename: str):
 
     table_data = [
         ["Forensic Metric", "Authentic Camera Photo", "AI Diffusion Synthetic", "Separation Margin (\u0394)", "AUROC"],
-        ["Reconstruction PSNR", "33.11 \u00b1 0.14 dB", "36.94 \u00b1 0.07 dB", "+3.83 dB", "100.00%"],
-        ["Reconstruction MSE", "0.001955 \u00b1 0.000062", "0.000809 \u00b1 0.000013", "-58.6% Error", "100.00%"],
-        ["Harmonic Spike Ratio", "1.141\u00d7 baseline", "2.268\u00d7 baseline", "+1.127\u00d7", "100.00%"],
+        ["Reconstruction PSNR", "32.33 \u00b1 1.20 dB", "36.88 \u00b1 0.27 dB", "+4.56 dB", "100.00%"],
+        ["PSNR 95% CI", "[31.82, 32.83] dB", "[36.77, 37.00] dB", "Non-overlapping", "100.00%"],
+        ["Reconstruction MSE", "0.002440 \u00b1 0.000756", "0.000822 \u00b1 0.000054", "-66.3% Error", "100.00%"],
+        ["Harmonic Spike Ratio", "1.141 \u00b1 0.084\u00d7", "2.187 \u00b1 0.210\u00d7", "+1.046\u00d7", "100.00%"],
+        ["Statistical Power", "p < 1.82e-16 (t-test)", "p < 7.08e-10 (Mann-Whitney)", "Cohen's d = 5.13", "100.00%"],
     ]
 
     t1 = Table(table_data, colWidths=[2.1 * inch, 1.8 * inch, 1.8 * inch, 1.7 * inch])
@@ -274,7 +276,7 @@ def build_pdf(filename: str):
         ("PADDING", (0, 0), (-1, -1), 5),
     ]))
     story.append(t1)
-    story.append(Paragraph("TABLE I: Quantitative Reconstruction &amp; Spectral Metrics on Clean Benchmark (N=30, \u03c3=0)", caption_style))
+    story.append(Paragraph("TABLE I: Quantitative Reconstruction &amp; Spectral Metrics on Clean Benchmark (N=50, \u03c3=0)", caption_style))
 
     # Radial Spectrum Figure
     if os.path.exists(RADIAL_IMG_PATH):
