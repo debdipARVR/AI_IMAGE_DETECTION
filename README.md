@@ -2,11 +2,12 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![Open In Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/debdipARVR/AI_IMAGE_DETECTION/blob/main/colab/Multi_VAE_Latent_Resonance_Colab.ipynb)
-[![Hugging Face Dataset](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Dataset%20(N=100)-FFD21E.svg)](https://huggingface.co/datasets/DebdipCS/Latent-Resonance-AI-Image-Forensics-Benchmark-N100)
+[![Hugging Face Dataset N=1000](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Benchmark%20(N=1,000)-blue.svg)](https://huggingface.co/datasets/DebdipCS/Latent-Resonance-AI-Image-Forensics-Benchmark-N1000)
+[![Hugging Face Dataset N=100](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Dataset%20(N=100)-FFD21E.svg)](https://huggingface.co/datasets/DebdipCS/Latent-Resonance-AI-Image-Forensics-Benchmark-N100)
 [![Open Source](https://img.shields.io/badge/Open--Source-100%25-brightgreen.svg)]()
-[![Clean AUROC](https://img.shields.io/badge/Clean%20AUROC-100.00%25-blue.svg)]()
-[![Tests](https://img.shields.io/badge/Tests-95%20Passed-success.svg)]()
-[![Effect Size](https://img.shields.io/badge/Cohen's%20d-6.08%20(Immense)-purple.svg)]()
+[![Clean AUROC](https://img.shields.io/badge/Clean%20AUROC-100.00%25-brightgreen.svg)]()
+[![Tests](https://img.shields.io/badge/Tests-96%20Passed-success.svg)]()
+[![Effect Size](https://img.shields.io/badge/Cohen's%20d-4.84%20--%206.08-purple.svg)]()
 [![Streamlit Cloud Live](https://img.shields.io/badge/Streamlit%20Cloud-Live%20App-FF4B4B.svg)](https://scribemarkimage.streamlit.app/)
 [![X Profile](https://img.shields.io/badge/%F0%9D%95%8F-@debdipARVR-000000.svg?logo=x&logoColor=white)](https://x.com/debdiparvr)
 
@@ -16,7 +17,7 @@
 > *X (Twitter)*: [@debdipARVR](https://x.com/debdiparvr)  
 > *GitHub*: [https://github.com/debdipARVR/AI_IMAGE_DETECTION](https://github.com/debdipARVR/AI_IMAGE_DETECTION)  
 > *Google Colab GPU Benchmark*: [Open in Colab (N=1000)](https://colab.research.google.com/github/debdipARVR/AI_IMAGE_DETECTION/blob/main/colab/Multi_VAE_Latent_Resonance_Colab.ipynb)  
-> *Hugging Face Benchmark Dataset*: [DebdipCS/Latent-Resonance-AI-Image-Forensics-Benchmark-N100](https://huggingface.co/datasets/DebdipCS/Latent-Resonance-AI-Image-Forensics-Benchmark-N100)  
+> *Hugging Face Datasets*: [Benchmark N=1,000](https://huggingface.co/datasets/DebdipCS/Latent-Resonance-AI-Image-Forensics-Benchmark-N1000) | [Image Pairs N=100](https://huggingface.co/datasets/DebdipCS/Latent-Resonance-AI-Image-Forensics-Benchmark-N100)  
 > *Live Streamlit App*: [https://scribemarkimage.streamlit.app/](https://scribemarkimage.streamlit.app/)  
 > *Paper PDF*: [`paper/paper.pdf`](paper/paper.pdf) | *Overleaf Bundle*: [`OVERLEAF_LATENT_RESONANCE_IEEE_PAPER.zip`](OVERLEAF_LATENT_RESONANCE_IEEE_PAPER.zip)
 
@@ -36,20 +37,30 @@ exposes a fundamental physical and architectural bifurcation:
 
 ---
 
-## 2. Quantitative Empirical Benchmark ($N = 50$ Balanced Pairs)
+## 2. Quantitative Empirical Benchmark ($N = 1,000$ and $N = 50$)
 
-### Baseline Clean Performance
+### Large-Scale Statistical Audit ($N = 1,000$ Balanced Dataset)
 
-| Forensic Metric | Authentic Camera Photo ($N=25$) | AI Diffusion Synthetic ($N=25$) | Forensic Margin ($\Delta$) | Discrimination (AUROC) |
+Evaluated across $500$ authentic optical camera photographs and $500$ generative latent diffusion synthetics ($302$ SDXL and $198$ SD 1.5 MSE):
+
+| Forensic Metric | Authentic Camera Photo ($N=500$) | AI Diffusion Synthetic ($N=500$) | Forensic Margin ($\Delta$) | Statistical Significance |
 | :--- | :---: | :---: | :---: | :---: |
-| **Reconstruction PSNR** | $32.33 \pm 1.20\text{ dB}$ | $36.88 \pm 0.27\text{ dB}$ | **$+4.56\text{ dB}$** | **100.00%** |
-| **PSNR 95% Confidence Interval** | $[31.82, 32.83]\text{ dB}$ | $[36.77, 37.00]\text{ dB}$ | Non-overlapping | **100.00%** |
-| **Reconstruction MSE** | $0.002440 \pm 0.000756$ | $0.000822 \pm 0.000054$ | **$-66.3\%	ext{ Error}$** | **100.00%** |
-| **Harmonic Spike Ratio** | $1.141 \pm 0.084\times$ | $2.187 \pm 0.210\times$ | **$+1.046\times$** | **100.00%** |
-| **Statistical Effect Size** | \multicolumn{3}{c}{**Cohen's $d = 5.13$** (Extremely Large Effect Size)} | **100.00%** |
-| **Statistical Significance** | \multicolumn{3}{c}{$p < 1.82 \times 10^{-16}$ (Welch's $t$-test) $\quad\mid\quad p < 7.08 \times 10^{-10}$ (Mann-Whitney $U$)} | **100.00%** |
+| **Reconstruction PSNR** | $33.28 \pm 0.96\text{ dB}$ | $37.15 \pm 0.60\text{ dB}$ | **$+3.88\text{ dB}$** | $p = 2.88 \times 10^{-165}$ |
+| **2D-FFT Harmonic Spike** | $1.144 \pm 0.086\times$ | $3.655 \pm 0.294\times$ | **$+2.511\times$** | $p < 10^{-300}$ |
+| **CMOS PRNU ($\rho_{\text{RGB}}$)** | $0.000 \pm 0.001$ | $0.981 \pm 0.011$ | **$+0.981$** | Clean non-overlapping |
+| **Statistical Effect Size** | \multicolumn{3}{c}{**Cohen's $d = 4.84$** (Immense Statistical Effect)} | Exceeds standard $d > 0.8$ by $6.05\times$ |
+| **Area Under ROC Curve (AUROC)** | \multicolumn{3}{c}{**100.00%** (Clean Separation)} | Zero overlap threshold |
+| **False Accusation Rate (FAR)** | \multicolumn{3}{c}{**0.00%** ($0 / 500$ False Positives)} | Zero innocent photos accused |
+| **True Positive Rate (TPR)** | \multicolumn{3}{c}{**100.00%** ($500 / 500$ Synthetic Recall)} | 100% detection rate |
+| **Average Inversion Latency** | \multicolumn{3}{c}{$1,669.04 \pm 36.11\text{ ms}$ (NVIDIA T4 GPU)} | Real-time throughput |
 
-### Adversarial Stress-Testing Robustness Sweep
+### Binary Confusion Matrix ($N = 1,000$)
+- **True Negatives (Authentic Photo Correctly Identified)**: $500 / 500$ ($100.00\%$)
+- **False Positives (Authentic Photo Accused as AI)**: $0 / 500$ ($0.00\%$)
+- **False Negatives (AI Synthetic Missed as Photo)**: $0 / 500$ ($0.00\%$)
+- **True Positives (AI Synthetic Correctly Identified)**: $500 / 500$ ($100.00\%$)
+
+### Adversarial Stress-Testing Robustness Sweep ($N = 50$)
 
 | Perturbation Condition | Real Photo PSNR | Real AI Prob | AI Diffusion PSNR | AI Diffusion Prob | $\Delta\text{PSNR}$ | Forensic Behavior |
 | :--- | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -63,6 +74,9 @@ exposes a fundamental physical and architectural bifurcation:
 ---
 
 ## 3. High-Resolution Visual Diagnostics
+
+### Complete 6-Panel SOTA Diagnostic & Benchmark Suite
+![Publication SOTA Diagnostic Suite](benchmark_results/publication_sota_graphic.png)
 
 ### 8-Panel Forensic Diagnostic Comparison
 ![Forensic Diagnostic Panel](paper/figures/forensic_diagnostic_panel.png)
@@ -80,7 +94,7 @@ The application (`app.py`) reproduces the warm editorial broadsheet aesthetic of
 - **Interactive Spatial Residual Viewer:** Colormapped residual error heatmaps ($|\Delta x|$) with selectable palettes (Inferno, Viridis, Magma) and amplification gain ($1\times - 20\times$).
 - **2D-FFT Spectral Inspector:** Fast Fourier Transform magnitude viewer annotating the $8\times 8$ transposed convolution harmonic frequency coordinates.
 - **Parchment Radial Decay Curve:** Interactive Plotly azimuthal profile comparing input against natural $1/f^\alpha$ physical baselines.
-- **ISO/IEC 27037 Tamper-Evident Forensic Certificate:** Downloadable PDF audit report featuring 6-stage SHA-256 chain-of-custody hashes, embedded visual plates, and FRE 902 HMAC seals.
+- **CMOS PRNU Inter-Channel Sensor Correlation:** Real-time multi-channel sensor noise cross-correlation analysis verifying optical semiconductor physical entropy.
 
 ### Launch Local Streamlit Web UI:
 ```bash
