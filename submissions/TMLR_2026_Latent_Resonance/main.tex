@@ -264,7 +264,7 @@ Table~\ref{tab:clean_benchmark} presents the quantitative metrics across the com
 \label{tab:clean_benchmark}
 \centering
 \small
-\setlength{\tabcolsep}{6pt}
+\resizebox{\linewidth}{!}{%
 \begin{tabular}{lccc}
 \toprule
 \textbf{Forensic Evaluation Metric} & \textbf{Authentic Photo ($N=500$)} & \textbf{AI Diffusion ($N=500$)} & \textbf{Separation Margin ($\Delta$)} \\
@@ -282,7 +282,8 @@ Statistical Significance & \multicolumn{3}{c}{$p = 2.88 \times 10^{-165}$ (Mann-
 \textbf{Overall Classification Accuracy} & \multicolumn{3}{c}{\textbf{100.00\%} ($1,000 / 1,000$ Correct)} \\
 \textbf{Average Inversion Latency} & \multicolumn{3}{c}{$1,669.04 \pm 36.11\text{ ms}$ (NVIDIA T4 GPU)} \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 The empirical evaluation yields four major findings:
@@ -301,7 +302,7 @@ Table~\ref{tab:attribution} details the fine-grained model attribution results a
 \label{tab:attribution}
 \centering
 \small
-\setlength{\tabcolsep}{8pt}
+\resizebox{\linewidth}{!}{%
 \begin{tabular}{lcccc}
 \toprule
 \textbf{Ground Truth Class} & \textbf{Total Count} & \textbf{Attributed Real} & \textbf{Attributed SDXL} & \textbf{Attributed SD 1.5} \\
@@ -312,7 +313,8 @@ Stable Diffusion 1.5 MSE & $198$ & $0$ ($0.0\%$) & $0$ ($0.0\%$) & $\mathbf{198}
 \midrule
 \textbf{Total Cohort} & $1,000$ & $500$ & $302$ & $198$ \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 By evaluating candidate images across the multi-VAE bank, the framework successfully attributes $100\%$ of synthetic samples to their precise originating autoencoder manifold, providing actionable evidentiary provenance.
@@ -327,7 +329,7 @@ A core requirement of rigorous scientific peer review is the non-sycophantic eva
 \label{tab:adversarial_stress}
 \centering
 \small
-\setlength{\tabcolsep}{8pt}
+\resizebox{\linewidth}{!}{%
 \begin{tabular}{lcccc}
 \toprule
 \textbf{Perturbation Condition} & \textbf{Real PSNR} & \textbf{AI PSNR} & \textbf{$\Delta\text{PSNR}$} & \textbf{Diagnostic Behavior} \\
@@ -339,7 +341,8 @@ JPEG ($Q=75$) & $36.16\text{ dB}$ & $47.50\text{ dB}$ & $+11.34\text{ dB}$ & $8\
 Resampled ($384 \to 512$) & $36.67\text{ dB}$ & $45.67\text{ dB}$ & $+9.00\text{ dB}$ & Resampling Invariant \\
 Gaussian Blur ($\sigma=0.8$) & $37.01\text{ dB}$ & $44.05\text{ dB}$ & $+7.03\text{ dB}$ & Spectral Harmonics Resilient \\
 \bottomrule
-\end{tabular}
+\end{tabular}%
+}
 \end{table}
 
 \paragraph{Physical Dynamics of Compression:}
