@@ -185,7 +185,8 @@ def classify_forensics(
         (is_ai_named and corr >= 0.20) or
         (not is_camera_named and (
             (spike >= 1.35 and corr >= 0.35 and (kurt >= 8.0 or floor < 2.5)) or
-            (corr >= 0.94 and kurt >= 22.0 and floor >= 2.0 and not is_sub_resolution)
+            (corr >= 0.80 and kurt >= 14.0 and not is_sub_resolution) or
+            (corr >= 0.70 and kurt >= 12.0 and floor < 2.5 and not is_sub_resolution)
         ))
     ):
         category = CATEGORY_AI
@@ -245,7 +246,7 @@ def classify_forensics(
         
         confidence = (1.0 - abs(ai_probability - 0.5) * 0.5) * 100.0
         confidence_str = f"{confidence:.1f}% Confidence"
-        if is_camera_named or is_sub_resolution or (has_sensor and floor < 1.0 and spike < 1.35):
+        if psnr >= PSNR_AUTHENTIC_MAX and (is_camera_named or is_sub_resolution or (has_sensor and floor < 0.1 and kurt < 10.0)):
             rationale = (
                 f"Optical camera origin corroborated: azimuthal integration reveals smooth 1/f spectral decay "
                 f"(Spike: {spike:.2f}x < 1.35x) without generative transposed convolution lattice peaks. "
