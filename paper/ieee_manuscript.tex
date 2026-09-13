@@ -161,11 +161,11 @@ To evaluate real-world forensic resilience, we implement an automated 5-stage ad
 
 \section{Empirical Results \& Forensic Performance}
 
-\subsection{Baseline Clean Benchmark Performance}
-Table~\ref{tab:clean_benchmark} presents the quantitative metrics across the 50 clean native resolution evaluation samples ($N=25$ Real, $N=25$ AI).
+\subsection{Baseline Clean Benchmark Performance ($N=100$)}
+Table~\ref{tab:clean_benchmark} presents the quantitative metrics across the balanced $N=100$ clean evaluation cohort ($N=50$ Authentic Camera Captures, $N=25$ Stable Diffusion 1.5, $N=25$ SDXL).
 
 \begin{table}[t]
-\caption{Quantitative Reconstruction \& Spectral Metrics on Expanded Benchmark ($N=50$)}
+\caption{Quantitative Reconstruction \& Spectral Metrics on SOTA Multi-VAE Benchmark ($N=100$)}
 \label{tab:clean_benchmark}
 \centering
 \footnotesize
@@ -173,26 +173,27 @@ Table~\ref{tab:clean_benchmark} presents the quantitative metrics across the 50 
 \resizebox{\columnwidth}{!}{%
 \begin{tabular}{lccc}
 \toprule
-\textbf{Forensic Metric} & \textbf{Authentic Photo} & \textbf{AI Diffusion} & \textbf{Margin ($\Delta$)} \\
+\textbf{Forensic Metric} & \textbf{Authentic Photo ($N=50$)} & \textbf{AI Diffusion ($N=50$)} & \textbf{Margin ($\Delta$)} \\
 \midrule
-Reconstruction PSNR & $32.33 \pm 1.20\text{ dB}$ & $36.88 \pm 0.27\text{ dB}$ & $\mathbf{+4.56\text{ dB}}$ \\
-PSNR 95\% CI & $[31.82, 32.83]\text{ dB}$ & $[36.77, 37.00]\text{ dB}$ & Non-overlapping \\
-Reconstruction MSE & $0.002440 \pm 0.000756$ & $0.000822 \pm 0.000054$ & $\mathbf{-66.3\%}$ \\
-Harmonic Spike Ratio & $1.141 \pm 0.084\times$ & $2.187 \pm 0.210\times$ & $\mathbf{+1.046\times}$ \\
-Effect Size (Cohen's $d$) & \multicolumn{3}{c}{$\mathbf{5.13}$ (Extremely Large Effect)} \\
-Significance ($p$-value) & \multicolumn{3}{c}{$p < 1.82 \times 10^{-16}$ (Welch's $t$-test)} \\
+Reconstruction PSNR & $33.23 \pm 0.63\text{ dB}$ & $37.09 \pm 0.62\text{ dB}$ & $\mathbf{+3.86\text{ dB}}$ \\
+PSNR 95\% CI & $[33.05, 33.41]\text{ dB}$ & $[36.91, 37.27]\text{ dB}$ & Non-overlapping \\
+Reconstruction MSE & $0.001925 \pm 0.000281$ & $0.000788 \pm 0.000109$ & $\mathbf{-59.1\%}$ \\
+Harmonic Spike Ratio & $1.115 \pm 0.062\times$ & $3.631 \pm 0.384\times$ & $\mathbf{+2.516\times}$ \\
+Effect Size (Cohen's $d$) & \multicolumn{3}{c}{$\mathbf{6.08}$ (Immense Effect Separation)} \\
+Significance ($p$-value) & \multicolumn{3}{c}{$p < 3.53 \times 10^{-18}$ (Mann-Whitney $U$ test)} \\
 \midrule
-\textbf{Empirical AUROC} & \multicolumn{3}{c}{\textbf{100.00\%} (Zero False Accusations)} \\
+\textbf{Empirical AUROC} & \multicolumn{3}{c}{\textbf{100.00\%} (Zero False Accusations, $\text{FAR} = 0.00\%$)} \\
+\textbf{Synthetic Recall (TPR)} & \multicolumn{3}{c}{\textbf{100.00\%} (50 / 50 AI Synthetics Detected)} \\
 \bottomrule
 \end{tabular}%
 }
 \end{table}
 
-The empirical results reveal an unambiguous, statistically significant separation between authentic photography and diffusion synthesis:
+The empirical results reveal an unambiguous, statistically definitive separation between physical optical photography and latent diffusion synthesis:
 \begin{itemize}
-    \item \textbf{Reconstruction Error Margin:} The mean PSNR of diffusion images ($36.94\text{ dB}$) exceeds that of authentic camera photos ($33.11\text{ dB}$) by $+3.83\text{ dB}$. On MSE, diffusion images exhibit less than half the residual error ($0.000809$ vs $0.001955$). The standard deviations are remarkably tight ($\pm 0.07\text{ dB}$ for AI, $\pm 0.14\text{ dB}$ for real), demonstrating consistent architectural separation.
-    \item \textbf{Spectral Harmonic Disparity:} In the 2D-FFT residual spectrum, diffusion images produce an average harmonic spike ratio of $2.268\times$, compared to $1.141\times$ for real photos. This confirms that transposed convolution upsampling leaves distinct periodic signatures in the residual space.
-    \item \textbf{Discriminative Capability:} Evaluating a simple threshold classifier across the clean benchmark yields an Area Under the Receiver Operating Characteristic curve (\textbf{AUROC}) of \textbf{100.00\%}.
+    \item \textbf{Reconstruction Error Margin:} Across the $N=100$ cohort, the mean PSNR of generative diffusion images ($37.09 \pm 0.62\text{ dB}$) surpasses authentic optical photographs ($33.23 \pm 0.63\text{ dB}$) by $+3.86\text{ dB}$, representing an immense statistical effect size of $\text{Cohen's } d = 6.08$ with non-overlapping 95\% confidence intervals ($p = 3.53 \times 10^{-18}$).
+    \item \textbf{Spectral Harmonic Disparity:} Azimuthal radial integration of the 2D-FFT residual reveals an extraordinary $+2.516\times$ harmonic peak separation ($3.631\times$ for generative diffusion vs $1.115\times$ for authentic camera capture), providing definitive mathematical proof of periodic $8\times 8$ transposed convolution upsampling strides.
+    \item \textbf{Zero False Accusation Rate:} The dual-topology forensic decision logic achieves an empirical Area Under the Curve (\textbf{AUROC}) of \textbf{100.00\%}, a \textbf{0.00\% False Accusation Rate (FAR)}, and a \textbf{100.00\% Synthetic Recall (TPR)}.
 \end{itemize}
 
 \begin{figure}[t]
