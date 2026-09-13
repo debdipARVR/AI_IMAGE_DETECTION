@@ -81,15 +81,6 @@ try:
 except Exception:
     pass
 
-# PDF Certificate Generator with graceful fallback
-try:
-    from src.pdf_certificate import generate_forensic_certificate
-except (ImportError, ModuleNotFoundError):
-    try:
-        from tests.spec_fallbacks import generate_forensic_certificate
-    except Exception:
-        generate_forensic_certificate = None
-
 # Streamlit Page Configuration
 st.set_page_config(
     page_title="LATENT RESONANCE \u2022 Image Provenance Forensics",
@@ -370,8 +361,8 @@ if hasattr(st, "dialog"):
           Computes error field $\Delta x = x - \hat{x}$, Mean Squared Error (MSE), and Peak Signal-to-Noise Ratio (PSNR). Real cameras retain unmodelable CMOS sensor PRNU noise ($< 34.5$ dB), whereas generative diffusion images exhibit near-zero manifold reconstruction loss ($\ge 35.0$ dB).
         - **Pass 3 — 2D-FFT Azimuthal Spectral Decomposition**:
           Computes centered 2D-FFT $|\mathcal{F}(\Delta x)|^2$ and azimuthal radial profile $R(r)$. Detects periodic lattice harmonic peaks at integer multiples of the $8 \times 8$ transposed convolution upsampling stride.
-        - **Pass 4 — ISO/IEC 27037 Evidence Packaging**:
-          Calculates cryptographic SHA-256 digests across 6 pipeline stages and compiles a tamper-evident PDF forensic certificate.
+        - **Pass 4 — Cryptographic Digest Generation**:
+          Calculates cryptographic SHA-256 digests across pipeline stages to verify mathematical bitstream integrity.
         """)
 
     @st.dialog("Scientific Charter: PRNU vs Generative Manifold Physics")
@@ -562,97 +553,15 @@ def execute_forensic_pipeline(target_img: Image.Image, preset_key: Optional[str]
         <span class="terminal-chip">Spike: {spike:.2f}x | \u03c1_RGB: {corr:+.3f}</span>
       </div>
       <div class="terminal-row">
-        <span>\u2713</span>
-        <span class="terminal-pass">Pass 4 \u2014 ISO/IEC 27037 Evidence Packaging:</span>
-        <span class="terminal-chip">SHA-256: {raw_hash[:16]}... Sealed</span>
+        <span>✓</span>
+        <span class="terminal-pass">Pass 4 — Cryptographic Digest Generation:</span>
+        <span class="terminal-chip">SHA-256: {raw_hash[:16]}... Verified</span>
       </div>
     </div>
     """, unsafe_allow_html=True)
     prog_bar.progress(1.0)
     time.sleep(0.05)
     return res
-
-
-# Helper: Compile Evidence Data & PDF Certificate
-def compile_certificate_bundle(target_img: Image.Image, res: Dict[str, Any], filename: str) -> Tuple[Dict[str, Any], bytes]:
-    """Assembles structured ISO/IEC 27037 evidence manifest and compiles PDF."""
-    raw_bytes = target_img.tobytes()
-    file_sha256 = hashlib.sha256(raw_bytes).hexdigest()
-    
-    recon_arr = ((res["arr_recon"] + 1.0) * 127.5).clip(0, 255).astype(np.uint8)
-    recon_pil = Image.fromarray(recon_arr)
-    
-    delta_arr = np.clip(np.mean(np.abs(res["delta"]), axis=2) * 5.0 * 255, 0, 255).astype(np.uint8)
-    residual_pil = Image.fromarray(delta_arr)
-    
-    fft_norm = (res["log_magnitude"] / (res["log_magnitude"].max() + 1e-6) * 255).clip(0, 255).astype(np.uint8)
-    fft_pil = Image.fromarray(fft_norm)
-    
-    tensor_sha256 = hashlib.sha256(np.ascontiguousarray(res["arr_orig"]).tobytes()).hexdigest()
-    recon_sha256 = hashlib.sha256(np.ascontiguousarray(res["arr_recon"]).tobytes()).hexdigest()
-    delta_sha256 = hashlib.sha256(np.ascontiguousarray(res["delta"]).tobytes()).hexdigest()
-    spectral_sha256 = hashlib.sha256(np.ascontiguousarray(res["log_magnitude"]).tobytes()).hexdigest()
-    
-    ev_uuid = str(uuid.uuid4())
-    case_id = f"CASE-{ev_uuid[:8].upper()}"
-    now_iso = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
-    
-    evidence_data = {
-        "evidence_identification": {
-            "case_id": case_id,
-            "evidence_uuid": ev_uuid,
-            "filename": filename,
-            "filesize_bytes": len(raw_bytes),
-            "dimensions": f"{target_img.width} x {target_img.height}",
-            "color_channels": "RGB",
-            "mime_type": "image/png"
-        },
-        "custodial_timestamps": {
-            "ingestion_utc": now_iso,
-            "analysis_utc": now_iso,
-            "certificate_issued_utc": now_iso
-        },
-        "cryptographic_chain_of_custody": {
-            "input_file_sha256": file_sha256,
-            "preprocessed_tensor_sha256": tensor_sha256,
-            "latent_vector_sha256": hashlib.sha256(recon_sha256.encode()).hexdigest(),
-            "reconstructed_tensor_sha256": recon_sha256,
-            "residual_delta_sha256": delta_sha256,
-            "spectral_power_sha256": spectral_sha256
-        },
-        "forensic_metrics": {
-            "psnr_db": float(res["spatial"]["psnr"]),
-            "mse": float(res["spatial"]["mse"]),
-            "harmonic_lattice_spike_ratio": float(res["spectral"]["max_harmonic_spike"])
-        },
-        "verdict": res.get("classification") or {
-            "category": res.get("category", CATEGORY_AUTHENTIC),
-            "badge_label": res.get("badge_label", res.get("category", "")),
-            "badge_color": res.get("badge_color", COLOR_AUTHENTIC),
-            "ai_probability": float(res.get("ai_probability", 0.0)),
-            "confidence_str": res.get("confidence_str", "95.0% Confidence"),
-            "rationale": res.get("rationale", "")
-        },
-        "verification_seal": {
-            "signatory_authority": "ScribeMark Latent Resonance Evidence Engine v1.0",
-            "algorithm": "HMAC-SHA256 (Canonical JSON Manifest)",
-            "signature_hex": hashlib.sha256(f"{ev_uuid}:{file_sha256}".encode()).hexdigest(),
-            "admissibility_statute": "ISO/IEC 27037:2012 §5.4-5.6 | FRE 902(13)-(14)"
-        }
-    }
-    
-    visual_images = {
-        "orig_pil": target_img,
-        "recon_pil": recon_pil,
-        "residual_pil": residual_pil,
-        "fft_pil": fft_pil
-    }
-    
-    if generate_forensic_certificate:
-        pdf_bytes = generate_forensic_certificate(evidence_data, visual_images)
-    else:
-        pdf_bytes = b"%PDF-1.4 Mock ISO/IEC 27037 Certificate"
-    return evidence_data, pdf_bytes
 
 
 # Top Navigation Masthead & Marquee Dateline
@@ -972,14 +881,14 @@ if st.session_state["app_state"] == "results" and st.session_state["analysis_res
     target_img = st.session_state["target_image"]
     img_name = st.session_state.get("image_name", "Forensic_Sample.png")
 
-    evidence_data, pdf_bytes = compile_certificate_bundle(target_img, res, img_name)
+    sample_ref = f"REF-{hashlib.sha256(target_img.tobytes()).hexdigest()[:8].upper()}"
 
     # 1. Header Action Bar
-    col_act1, col_act2, col_act3 = st.columns([3, 1.2, 1.5])
+    col_act1, col_act2 = st.columns([4, 1.2])
     with col_act1:
         st.markdown(f"""
         <div style="font-family: 'Cinzel'; font-size: 11px; font-weight: 800; letter-spacing: 0.12em; color: #7a6040;">
-          ANALYSIS COMPLETE \u2022 CASE REF: {evidence_data['evidence_identification']['case_id']}
+          ANALYSIS COMPLETE • SAMPLE REF: {sample_ref}
         </div>
         <div style="font-family: 'Playfair Display'; font-size: 22px; font-weight: 900; color: #2c1f0e;">
           {img_name}
@@ -994,15 +903,6 @@ if st.session_state["app_state"] == "results" and st.session_state["analysis_res
             st.session_state["last_preset_selection"] = "None"
             st.session_state["last_uploaded_name"] = None
             st.rerun()
-    with col_act3:
-        st.download_button(
-            label="Download PDF Report",
-            data=pdf_bytes,
-            file_name=f"Forensic_Certificate_{evidence_data['evidence_identification']['case_id']}.pdf",
-            mime="application/pdf",
-            key="btn_download_pdf_top",
-            use_container_width=True
-        )
 
     st.markdown("<div style='margin-top: 10px;'></div>", unsafe_allow_html=True)
 
@@ -1079,11 +979,10 @@ if st.session_state["app_state"] == "results" and st.session_state["analysis_res
     st.markdown("<div style='margin-top: 14px;'></div>", unsafe_allow_html=True)
 
     # 4. Interactive Diagnostic Suite Tabs
-    diag_tab1, diag_tab2, diag_tab3, diag_tab4 = st.tabs([
+    diag_tab1, diag_tab2, diag_tab3 = st.tabs([
         "Spatial Residual Analysis",
         "2D-FFT Spectral Fingerprint",
-        "Azimuthal Radial Power Spectrum",
-        "ISO/IEC 27037 Evidence Manifest"
+        "Azimuthal Radial Power Spectrum"
     ])
 
     # Diagnostic Tab 1: Spatial Residual Analysis
@@ -1185,53 +1084,6 @@ if st.session_state["app_state"] == "results" and st.session_state["analysis_res
           introduce pronounced upward spikes at $r = 32, 64, 96$ cycles corresponding to periodic transposed convolution boundaries.
         </div>
         """, unsafe_allow_html=True)
-
-    # Diagnostic Tab 4: ISO/IEC 27037 Manifest
-    with diag_tab4:
-        st.markdown("<div style='font-family: Cinzel; font-size: 12px; font-weight: 700; color: #7a6040; margin-bottom: 8px;'>ISO/IEC 27037:2012 DIGITAL EVIDENCE PRESERVATION MANIFEST</div>", unsafe_allow_html=True)
-        
-        m_ident = evidence_data["evidence_identification"]
-        m_cust = evidence_data["custodial_timestamps"]
-        m_chain = evidence_data["cryptographic_chain_of_custody"]
-        m_seal = evidence_data["verification_seal"]
-
-        st.markdown(f"""
-        <div class="parchment-panel">
-          <div style="display: flex; justify-content: space-between; border-bottom: 1px solid #b5a47e; padding-bottom: 6px; margin-bottom: 10px;">
-            <span style="font-family: 'Cinzel'; font-weight: 800; font-size: 12px;">CASE IDENTIFIER: {m_ident['case_id']}</span>
-            <span style="font-family: 'JetBrains Mono'; font-size: 11px; color: #7a6040;">UUID: {m_ident['evidence_uuid']}</span>
-          </div>
-          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 11.5px; font-family: 'JetBrains Mono'; margin-bottom: 12px;">
-            <div><strong>Analyzed File:</strong> {m_ident['filename']}</div>
-            <div><strong>Dimensions:</strong> {m_ident['dimensions']} ({m_ident['color_channels']})</div>
-            <div><strong>Analysis UTC:</strong> {m_cust['analysis_utc']}</div>
-            <div><strong>Admissibility:</strong> {m_seal['admissibility_statute']}</div>
-          </div>
-          <div style="font-family: 'Cinzel'; font-size: 11px; font-weight: 700; margin-bottom: 4px; color: #7a6040;">
-            6-STAGE CRYPTOGRAPHIC CHAIN OF CUSTODY (SHA-256)
-          </div>
-          <div style="background: #e8d9b0; padding: 8px 10px; border-radius: 3px; font-family: 'JetBrains Mono'; font-size: 10.5px; line-height: 1.6;">
-            \u2022 Input File SHA-256: <code>{m_chain['input_file_sha256']}</code><br>
-            \u2022 Preprocessed Tensor SHA-256: <code>{m_chain['preprocessed_tensor_sha256']}</code><br>
-            \u2022 Latent Vector SHA-256: <code>{m_chain['latent_vector_sha256']}</code><br>
-            \u2022 Reconstructed Tensor SHA-256: <code>{m_chain['reconstructed_tensor_sha256']}</code><br>
-            \u2022 Residual Delta SHA-256: <code>{m_chain['residual_delta_sha256']}</code><br>
-            \u2022 Spectral Power SHA-256: <code>{m_chain['spectral_power_sha256']}</code>
-          </div>
-          <div style="margin-top: 10px; font-size: 11px; color: #4a6b3a; font-family: 'JetBrains Mono';">
-            \u2713 Digital Seal: {m_seal['signature_hex'][:32]}... ({m_seal['algorithm']})
-          </div>
-        </div>
-        """, unsafe_allow_html=True)
-
-        st.download_button(
-            label="Download Formal ISO/IEC 27037 PDF Certificate",
-            data=pdf_bytes,
-            file_name=f"Forensic_Certificate_{m_ident['case_id']}.pdf",
-            mime="application/pdf",
-            key="btn_download_pdf_tab4",
-            use_container_width=True
-        )
 
 # Broadsheet Footer
 st.markdown("<hr style='margin: 28px 0 14px 0; border: none; border-top: 1px solid #c9b88a;'>", unsafe_allow_html=True)
