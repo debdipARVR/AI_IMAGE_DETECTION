@@ -351,9 +351,10 @@ if hasattr(st, "dialog"):
         st.markdown("""
         ### Ethical AI Forensics & Chain-of-Custody Agreement
         This forensic tool operates under strict **ISO/IEC 27037:2012** digital evidence preservation guidelines:
-        1. **Ephemeral RAM Pipeline**: Uploaded images are processed entirely within volatile memory. No image data or derived biometric signatures are written to disk or transmitted to third-party APIs.
-        2. **Scientific Safe Harbor**: Provenance determinations are calibrated mathematical estimations based on deterministic autoencoder reconstruction errors and 2D-FFT periodic lattice peak analysis.
-        3. **Non-Destructive Inspection**: The original bitstream remains unaltered throughout the 4-pass forensic pipeline.
+        1. **Hosting Infrastructure & Zero Data Guarantee Disclaimer**: This application is hosted on public Streamlit Community Cloud (`streamlit.app`). While our internal code processes image data purely in ephemeral volatile RAM without disk logging, the application operates on third-party cloud infrastructure provided by Streamlit/Snowflake. Consequently, we provide this research tool on an "as-is" basis and **do not take any guarantee, warranty, or liability for your image data**, its network transit, or third-party host environment security. Operators should not upload classified, confidential, or sensitive personal imagery.
+        2. **Ephemeral RAM Pipeline**: Uploaded images are processed entirely within volatile memory. No image data or derived biometric signatures are written to disk or transmitted to third-party APIs.
+        3. **Scientific Safe Harbor**: Provenance determinations are calibrated mathematical estimations based on deterministic autoencoder reconstruction errors and 2D-FFT periodic lattice peak analysis.
+        4. **Non-Destructive Inspection**: The original bitstream remains unaltered throughout the 4-pass forensic pipeline.
         """)
         if st.button("I Acknowledge & Accept Terms", key="btn_accept_terms", use_container_width=True):
             st.session_state["terms_accepted"] = True
@@ -407,7 +408,7 @@ if "active_preset_key" not in st.session_state:
     st.session_state["active_preset_key"] = None
 
 if "terms_accepted" not in st.session_state:
-    st.session_state["terms_accepted"] = True
+    st.session_state["terms_accepted"] = False
 
 if "heatmap_colormap" not in st.session_state:
     st.session_state["heatmap_colormap"] = "inferno"
@@ -729,15 +730,74 @@ if st.session_state["app_state"] == "landing":
     </div>
     """, unsafe_allow_html=True)
 
+    # Mandatory Forensic Terms & Conditions Gate
+    terms_accepted = st.session_state.get("terms_accepted", False)
+
+    if not terms_accepted:
+        st.markdown("""
+        <div class="parchment-panel" style="border-left: 5px solid var(--color-red); background: rgba(139, 32, 0, 0.04); margin-bottom: 16px;">
+          <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="font-size: 18px;">\U00002696\U0000fe0f</span>
+              <span style="font-family: 'Cinzel', serif; font-weight: 800; font-size: 13px; letter-spacing: 0.06em; color: var(--color-red);">
+                MANDATORY FORENSIC TERMS & CONDITIONS (ISO/IEC 27037:2012)
+              </span>
+            </div>
+            <span style="font-family: 'JetBrains Mono'; font-size: 11px; color: var(--color-red); font-weight: 700;">[UPLOAD LOCKED]</span>
+          </div>
+          <div style="font-family: 'Newsreader', Georgia, serif; font-size: 13.5px; line-height: 1.55; color: var(--color-text); margin-bottom: 10px;">
+            To maintain strict digital chain-of-custody and ensure adherence to forensic safe harbor standards, image ingestion is locked until the operator acknowledges and accepts the following terms:
+            <ul style="margin: 6px 0 6px 18px; padding: 0; font-size: 12.5px; color: var(--color-muted); line-height: 1.6;">
+              <li><strong>Streamlit Cloud Hosting & No Data Guarantee:</strong> This application is hosted on public Streamlit Community Cloud infrastructure (<code>streamlit.app</code>). While internal pipeline processing is RAM-ephemeral, <strong>we do not take any guarantee, warranty, or liability for your image data</strong> on third-party cloud infrastructure. Do not upload classified, confidential, or sensitive personal imagery.</li>
+              <li><strong>Ephemeral Volatile RAM Pipeline:</strong> Uploaded digital imagery is processed solely in transient memory. Zero permanent disk storage, no third-party cloud caching, and zero training data persistence.</li>
+              <li><strong>Probabilistic Forensic Corroboration:</strong> Reconstructions and 2D-FFT azimuthal harmonics provide probabilistic corroboration under ISO/IEC 27037 standards, not absolute singular legal determinations.</li>
+              <li><strong>Authorized Evaluation:</strong> The operator warrants lawful ownership or investigative authorization to evaluate the candidate digital imagery.</li>
+            </ul>
+          </div>
+        </div>
+        """, unsafe_allow_html=True)
+
+        chk_col1, chk_col2 = st.columns([3.5, 1.2])
+        with chk_col1:
+            agree_terms = st.checkbox(
+                "I acknowledge this app is hosted on Streamlit (no guarantee of image data on third-party host) and agree to Forensic Terms (ISO/IEC 27037:2012) to enable image upload",
+                value=False,
+                key="chk_terms_gate"
+            )
+        with chk_col2:
+            if st.button("Read Full Charter", key="btn_review_terms_gate", use_container_width=True):
+                show_terms_dialog()
+
+        if agree_terms:
+            st.session_state["terms_accepted"] = True
+            st.rerun()
+    else:
+        st.markdown("""
+        <div style="display: flex; align-items: center; justify-content: space-between; background: rgba(74, 107, 58, 0.08); border: 1px solid var(--color-green); border-radius: 4px; padding: 8px 16px; margin-bottom: 16px; font-size: 12px; font-family: 'JetBrains Mono'; color: var(--color-green);">
+          <span>\u2713 Forensic Terms Accepted \u2022 ISO/IEC 27037 Ingestion Pipeline Unlocked</span>
+          <span style="color: #7a6040; font-size: 11px;">RAM-Only Ephemeral Mode</span>
+        </div>
+        """, unsafe_allow_html=True)
+
     tab_dropzone, tab_presets = st.tabs(["\U0001f4c4 Image Dropzone", "\U0001f3af Peer-Reviewed Benchmark Presets"])
 
     uploaded_file = None
     with tab_dropzone:
-        uploaded_file = st.file_uploader(
-            "Upload an Image (.png, .jpg, .jpeg, .webp)",
-            type=["png", "jpg", "jpeg", "webp"],
-            key="file_dropzone"
-        )
+        if not terms_accepted:
+            st.warning("\U0001f512 **Upload Disabled:** Please review and accept the Mandatory Forensic Terms & Conditions above before uploading an image.")
+            st.file_uploader(
+                "Upload an Image (.png, .jpg, .jpeg, .webp)",
+                type=["png", "jpg", "jpeg", "webp"],
+                key="file_dropzone_locked",
+                disabled=True,
+                help="Accept the Terms & Conditions above to unlock image upload."
+            )
+        else:
+            uploaded_file = st.file_uploader(
+                "Upload an Image (.png, .jpg, .jpeg, .webp)",
+                type=["png", "jpg", "jpeg", "webp"],
+                key="file_dropzone"
+            )
         if uploaded_file is not None:
             up_img = Image.open(uploaded_file).convert("RGB")
             st.session_state["target_image"] = up_img
@@ -762,6 +822,8 @@ if st.session_state["app_state"] == "landing":
 
     selected_preset = "None"
     with tab_presets:
+        if not terms_accepted:
+            st.info("🔒 **Benchmark Presets Locked:** Please accept the Mandatory Terms & Conditions above to load peer-reviewed samples.")
         st.markdown("<div style='font-family: Cinzel; font-size: 11px; font-weight: 700; color: #7a6040; margin-bottom: 8px;'>ONE-CLICK BENCHMARK SAMPLE CARDS</div>", unsafe_allow_html=True)
         col_c1, col_c2, col_c3 = st.columns(3)
         
@@ -772,7 +834,7 @@ if st.session_state["app_state"] == "landing":
               <div class="preset-desc">Nikon D850 raw CMOS sensor capture (real_sample_000.png). Natural sensor PRNU grain; high spatial divergence.</div>
             </div>
             """, unsafe_allow_html=True)
-            if st.button("Load Authentic Photo", key="btn_pre_auth", use_container_width=True):
+            if st.button("Load Authentic Photo", key="btn_pre_auth", use_container_width=True, disabled=not terms_accepted):
                 p_img, _ = load_preset_sample("authentic_camera")
                 st.session_state["target_image"] = p_img
                 st.session_state["image_name"] = "real_sample_000.png"
@@ -785,7 +847,7 @@ if st.session_state["app_state"] == "landing":
               <div class="preset-desc">SDXL generative diffusion synthesis (ai_sample_000.png). High VAE latent resonance; 8x8 deconvolution lattice peaks.</div>
             </div>
             """, unsafe_allow_html=True)
-            if st.button("Load AI Synthetic", key="btn_pre_ai", use_container_width=True):
+            if st.button("Load AI Synthetic", key="btn_pre_ai", use_container_width=True, disabled=not terms_accepted):
                 p_img, _ = load_preset_sample("ai_diffusion")
                 st.session_state["target_image"] = p_img
                 st.session_state["image_name"] = "ai_sample_000.png"
@@ -798,7 +860,7 @@ if st.session_state["app_state"] == "landing":
               <div class="preset-desc">JPEG Q75 lossy re-encoding (real_sample_000_jpeg_q75.jpg). High-frequency attenuation; compression blocking.</div>
             </div>
             """, unsafe_allow_html=True)
-            if st.button("Load Perturbation", key="btn_pre_pert", use_container_width=True):
+            if st.button("Load Perturbation", key="btn_pre_pert", use_container_width=True, disabled=not terms_accepted):
                 p_img, _ = load_preset_sample("compressed_perturbed")
                 st.session_state["target_image"] = p_img
                 st.session_state["image_name"] = "real_sample_000_jpeg_q75.jpg"
@@ -813,7 +875,8 @@ if st.session_state["app_state"] == "landing":
                 "AI Diffusion: ai_sample_000.png",
                 "Compressed / Perturbed: real_sample_000_jpeg_q75.jpg"
             ],
-            key="preset_selector"
+            key="preset_selector",
+            disabled=not terms_accepted
         )
         if selected_preset != "None":
             if "Authentic Camera" in selected_preset:
@@ -862,22 +925,18 @@ if st.session_state["app_state"] == "landing":
           <strong>1. Evidentiary Nature & Probabilistic Verification:</strong> Latent Resonance Image Forensics performs deterministic mathematical and physical signal analysis (VAE latent reconstruction divergence, CMOS PRNU cross-channel noise correlation, and azimuthal 2D-FFT lattice harmonics). Outputs are probabilistic investigative corroboration adhering to ISO/IEC 27037 standards and do not constitute absolute singular legal determinations.<br>
           <strong>2. Ephemeral Zero-Retention Volatile Processing:</strong> Uploaded digital imagery is processed exclusively in transient RAM. No image data, feature tensors, or derivatives are permanently stored, indexed, shared, or utilized for AI training.<br>
           <strong>3. Compression & Resolution Integrity Notice:</strong> Resampled, sub-resolution (<512px), heavily cropped, or lossy JPEG-compressed imagery suppresses high-frequency photodiode shot noise, which may elevate reconstruction PSNR. Operators should submit original uncompressed optical camera captures whenever available.<br>
-          <strong>4. User Authorization:</strong> The operator warrants they possess legal authority or ownership to submit the target media for forensic provenance examination.
+          <strong>4. User Authorization:</strong> The operator warrants they possess legal authority or ownership to submit the target media for forensic provenance examination.<br>
+          <strong>5. Streamlit Cloud Hosting & Zero Data Guarantee:</strong> This application is hosted on public Streamlit Community Cloud infrastructure (<code>streamlit.app</code>). Although internal algorithmic processing is ephemeral and RAM-resident, the operators of this application do not own or control Streamlit/Snowflake underlying server infrastructure and <strong>take no guarantee, warranty, or liability whatsoever regarding your image data</strong>, transmission security, or host environment policies. All imagery is evaluated at the operator's sole risk.
         </div>
         """, unsafe_allow_html=True)
 
-    terms_accepted = st.checkbox(
-        "I have reviewed and agree to the Forensic Terms of Service & Evidentiary Protocol (ISO/IEC 27037)",
-        value=st.session_state.get("terms_accepted", True),
-        key="terms_accepted"
-    )
-
     st.markdown("<div style='margin-top: 10px;'></div>", unsafe_allow_html=True)
-    scan_button = st.button("Begin Forensic Scan", type="primary", use_container_width=True, key="btn_begin_scan", disabled=not terms_accepted)
+    is_ready_to_scan = terms_accepted and st.session_state.get("target_image") is not None
+    scan_button = st.button("Begin Forensic Scan", type="primary", use_container_width=True, key="btn_begin_scan", disabled=not is_ready_to_scan)
 
     should_process = False
     if not terms_accepted:
-        st.info("⚠️ Acceptance of the Forensic Evidentiary Terms & Privacy Protocol is required before initiating image analysis.")
+        st.info("⚠️ Mandatory Forensic Terms & Conditions must be accepted at the top of the console before uploading an image or initiating analysis.")
     else:
         if scan_button and st.session_state["target_image"] is not None:
             should_process = True

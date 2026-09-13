@@ -22,27 +22,48 @@ def headless_app():
     return at
 
 
+@pytest.fixture
+def unlocked_app(headless_app):
+    """Headless AppTest runner with terms accepted to unlock ingestion pipeline."""
+    at = headless_app
+    if len(at.checkbox) > 0 and not at.session_state["terms_accepted"]:
+        at.checkbox[0].check().run()
+    return at
+
+
 def test_t1_8_1_initial_state_landing_view(headless_app):
-    """T1.8.1: Initial application state renders title, dropzone, and preset loader."""
+    """T1.8.1: Initial application state renders title, gated dropzone, and terms checkbox."""
     at = headless_app
     assert len(at.exception) == 0
     assert len(at.file_uploader) >= 1
-    assert len(at.selectbox) >= 1
+    # Image upload must be locked until terms are accepted
+    assert at.file_uploader[0].disabled is True
+    assert len(at.checkbox) >= 1
+    assert at.session_state["terms_accepted"] is False
 
 
-def test_t1_8_2_preset_selection_populates_image(headless_app):
+def test_t1_8_1_terms_acceptance_unlocks_ingestion(unlocked_app):
+    """T1.8.1b: Accepting terms unlocks file upload dropzone."""
+    at = unlocked_app
+    assert len(at.exception) == 0
+    assert at.session_state["terms_accepted"] is True
+    assert len(at.file_uploader) >= 1
+    assert at.file_uploader[0].disabled is False
+
+
+def test_t1_8_2_preset_selection_populates_image(unlocked_app):
     """T1.8.2: Preset selection populates image preview and metrics."""
-    at = headless_app
+    at = unlocked_app
     # Select authentic camera preset (index 1 if presets available)
-    if len(at.selectbox[0].options) > 1:
+    if len(at.selectbox) > 0 and len(at.selectbox[0].options) > 1:
         at.selectbox[0].select_index(1).run()
         assert len(at.exception) == 0
         assert len(at.image) >= 1
 
 
-def test_t1_8_3_file_upload_triggers_processing(headless_app):
+def test_t1_8_3_file_upload_triggers_processing(unlocked_app):
     """T1.8.3: File upload to dropzone triggers VAE analysis and metric display."""
-    at = headless_app
+    at = unlocked_app
     img = Image.new("RGB", (64, 64), (120, 180, 220))
     buf = io.BytesIO()
     img.save(buf, format="PNG")
@@ -56,10 +77,10 @@ def test_t1_8_3_file_upload_triggers_processing(headless_app):
     assert "Mean Squared Error (MSE)" in labels
 
 
-def test_t1_8_4_traffic_light_badge_rendering(headless_app):
+def test_t1_8_4_traffic_light_badge_rendering(unlocked_app):
     """T1.8.4: Analysis renders verdict banner without unhandled exception."""
-    at = headless_app
-    if len(at.selectbox[0].options) > 1:
+    at = unlocked_app
+    if len(at.selectbox) > 0 and len(at.selectbox[0].options) > 1:
         at.selectbox[0].select_index(1).run()
         assert len(at.exception) == 0
         # Verdict displays in error or success block
@@ -67,10 +88,10 @@ def test_t1_8_4_traffic_light_badge_rendering(headless_app):
         assert has_verdict
 
 
-def test_t1_8_5_visual_diagnostic_panels_render(headless_app):
+def test_t1_8_5_visual_diagnostic_panels_render(unlocked_app):
     """T1.8.5: Multi-domain visual inspection panels display images without error."""
-    at = headless_app
-    if len(at.selectbox[0].options) > 1:
+    at = unlocked_app
+    if len(at.selectbox) > 0 and len(at.selectbox[0].options) > 1:
         at.selectbox[0].select_index(1).run()
         assert len(at.exception) == 0
         # Check that multiple images (Orig, Recon, Residual, FFT) are rendered
