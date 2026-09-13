@@ -1,0 +1,174 @@
+% Official style package for Transactions on Machine Learning Research (TMLR)
+% Compatible with standard LaTeX2e and pdfLaTeX
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{tmlr}[2023/04/01 TMLR style file]
+
+\RequirePackage{amsmath}
+\RequirePackage{amssymb}
+\RequirePackage{fancyhdr}
+\RequirePackage{color}
+\RequirePackage{algorithm}
+\RequirePackage{algorithmic}
+\RequirePackage{natbib}
+\RequirePackage{eso-pic}
+\RequirePackage{forloop}
+\RequirePackage{url}
+
+% Options
+\newif\iftmlr@accepted\tmlr@acceptedfalse
+\DeclareOption{accepted}{\tmlr@acceptedtrue}
+
+\newif\iftmlr@preprint\tmlr@preprintfalse
+\DeclareOption{preprint}{\tmlr@preprinttrue}
+
+\ProcessOptions\relax
+
+% Physical page layout
+\setlength\paperheight {11in}
+\setlength\paperwidth  {8.5in}
+\setlength{\topmargin}{0.25in}
+\setlength{\headheight}{12pt}
+\setlength{\headsep}{18pt}
+\setlength{\topskip}{10pt}
+\setlength{\textheight}{8.5in}
+\setlength{\textwidth}{6.5in}
+\setlength{\oddsidemargin}{0in}
+\setlength{\evensidemargin}{0in}
+
+\setlength{\parindent}{1.5em}
+\setlength{\parskip}{0.5ex plus 0.2ex minus 0.1ex}
+
+% Section headings
+\def\section{\@startsection {section}{1}{\z@}{-2.0ex plus
+    -0.5ex minus -.2ex}{1.5ex plus 0.3ex minus .2ex}{\large\bf\raggedright}}
+\def\subsection{\@startsection{subsection}{2}{\z@}{-1.8ex plus
+    -0.5ex minus -.2ex}{1.2ex plus .2ex}{\normalsize\bf\raggedright}}
+\def\subsubsection{\@startsection{subsubsection}{3}{\z@}{-1.5ex plus
+   -0.5ex minus -.2ex}{1.0ex plus .2ex}{\normalsize\bf\raggedright}}
+\def\paragraph{\@startsection{paragraph}{4}{\z@}{1.5ex plus
+   0.5ex minus .2ex}{-1em}{\normalsize\bf}}
+\def\subparagraph{\@startsection{subparagraph}{5}{\parindent}{1.5ex plus
+   0.5ex minus .2ex}{-1em}{\normalsize\bf}}
+
+% Title & Author formatting
+\def\maketitle{%
+  \par
+  \begingroup
+    \renewcommand\thefootnote{\@fnsymbol\c@footnote}%
+    \def\@makefnmark{\rlap{\@textsuperscript{\normalfont\@thefnmark}}}%
+    \long\def\@makefntext##1{\parindent 1em\noindent
+            \hb@xt@1.8em{%
+                \hss\@textsuperscript{\normalfont\@thefnmark}}##1}%
+    \newpage
+    \global\@topnum\z@   % Prevents figures from going at top of page.
+    \@maketitle
+    \@thanks
+  \endgroup
+  \setcounter{footnote}{0}%
+  \global\let\thanks\relax
+  \global\let\maketitle\relax
+  \global\let\@maketitle\relax
+  \global\let\@thanks\@empty
+  \global\let\@author\@empty
+  \global\let\@date\@empty
+  \global\let\@title\@empty
+  \global\let\title\relax
+  \global\let\author\relax
+  \global\let\date\relax
+  \global\let\and\relax
+}
+
+\def\@maketitle{%
+  \vbox to \titlebarheight{%
+    \hsize\textwidth
+    \linewidth\hsize
+    \vskip 0.1in
+    \begin{center}
+      {\LARGE\bf \@title \par}
+      \vskip 0.25in
+      \iftmlr@accepted
+        {\def\and{\unskip\enspace{\rm and}\enspace}%
+         \def\And{\end{tabular}\hss \egroup \hskip 1in plus 2fil 
+                  \hbox to 0pt\bgroup\hss \begin{tabular}[t]{c}\bf}%
+         \def\AND{\end{tabular}\hss\egroup \hfil\hfil\egroup
+                  \vskip 0.2in plus 1fil
+                   \hbox to \linewidth\bgroup\large \hfil\hfil
+                     \hbox to 0pt\bgroup\hss \begin{tabular}[t]{c}\bf}
+          \hbox to \linewidth\bgroup\large \hfil\hfil
+            \hbox to 0pt\bgroup\hss \begin{tabular}[t]{c}\bf\@author 
+                                    \end{tabular}\hss\egroup
+          \hfil\hfil\egroup}
+      \else
+        \iftmlr@preprint
+          {\def\and{\unskip\enspace{\rm and}\enspace}%
+           \def\And{\end{tabular}\hss \egroup \hskip 1in plus 2fil 
+                    \hbox to 0pt\bgroup\hss \begin{tabular}[t]{c}\bf}%
+           \def\AND{\end{tabular}\hss\egroup \hfil\hfil\egroup
+                    \vskip 0.2in plus 1fil
+                     \hbox to \linewidth\bgroup\large \hfil\hfil
+                       \hbox to 0pt\bgroup\hss \begin{tabular}[t]{c}\bf}
+            \hbox to \linewidth\bgroup\large \hfil\hfil
+              \hbox to 0pt\bgroup\hss \begin{tabular}[t]{c}\bf\@author 
+                                      \end{tabular}\hss\egroup
+            \hfil\hfil\egroup}
+        \else
+          {\large\bf Anonymous Authors}\\
+          \vskip 0.05in
+          {\normalsize Paper under double-blind review at Transactions on Machine Learning Research}
+        \fi
+      \fi
+    \end{center}
+    \vskip 0.15in
+    \vfill
+  }
+}
+
+\newlength\titlebarheight
+\setlength\titlebarheight{2.2in}
+
+% Author command helpers
+\newcommand{\name}[1]{\textbf{#1}\\}
+\newcommand{\addr}[1]{\textnormal{#1}\\}
+\newcommand{\email}[1]{\texttt{#1}}
+
+% Abstract environment
+\renewenvironment{abstract}%
+{%
+  \begin{center}%
+    {\large\bf Abstract}%
+  \end{center}%
+  \itshape
+  \par
+  \noindent
+}%
+{\par\vskip 0.2in}
+
+% Header and footer
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0pt}
+
+\iftmlr@accepted
+  \fancyhead[L]{\small Transactions on Machine Learning Research (\@month/\@year)}
+  \fancyhead[R]{\small \@runningtitle}
+\else
+  \iftmlr@preprint
+    \fancyhead[L]{\small Preprint. Under Review.}
+    \fancyhead[R]{\small \@runningtitle}
+  \else
+    \fancyhead[L]{\small Under review as a submission to TMLR}
+    \fancyhead[R]{}
+  \fi
+\fi
+
+\def\runningtitle#1{\gdef\@runningtitle{#1}}
+\def\@runningtitle{}
+\def\month#1{\gdef\@month{#1}}
+\def\@month{MM}
+\def\year#1{\gdef\@year{#1}}
+\def\@year{YYYY}
+
+\endinput
