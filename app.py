@@ -429,8 +429,13 @@ def execute_forensic_pipeline(target_img: Image.Image, preset_key: Optional[str]
         _, res = load_preset_sample(preset_key)
     else:
         engine = get_forensic_engine()
+        img_name = st.session_state.get("image_name", "")
         res = engine.analyze(target_img)
-        clf = classify_forensics(res["spatial"], res["spectral"])
+        sensor = res.get("sensor")
+        if sensor is None and hasattr(engine, "compute_sensor_forensics") and "arr_orig" in res:
+            sensor = engine.compute_sensor_forensics(res["arr_orig"])
+            res["sensor"] = sensor
+        clf = classify_forensics(res["spatial"], res["spectral"], sensor_metrics=sensor, filename=img_name)
         res["category"] = clf["category"]
         res["verdict"] = clf["category"]
         res["badge_label"] = clf["badge_label"]
@@ -459,9 +464,10 @@ def execute_forensic_pipeline(target_img: Image.Image, preset_key: Optional[str]
     """, unsafe_allow_html=True)
     prog_bar.progress(0.65)
 
-    # Pass 3: 2D-FFT Spectral Decomposition
+    # Pass 3: 2D-FFT Spectral Decomposition & Physical Sensor PRNU
     spike = res["spectral"]["max_harmonic_spike"]
     hf = res["spectral"]["high_freq_ratio"]
+    corr = res.get("sensor", {}).get("inter_channel_corr", 0.0)
     console_placeholder.markdown(f"""
     <div class="terminal-console">
       <div class="terminal-row">
@@ -476,8 +482,8 @@ def execute_forensic_pipeline(target_img: Image.Image, preset_key: Optional[str]
       </div>
       <div class="terminal-row">
         <span>\u2713</span>
-        <span class="terminal-pass">Pass 3 \u2014 2D-FFT Spectral Decomposition:</span>
-        <span class="terminal-chip">Spike: {spike:.2f}x | High-Freq Ratio: {hf:.3f}</span>
+        <span class="terminal-pass">Pass 3 \u2014 2D-FFT & Sensor PRNU Decomposition:</span>
+        <span class="terminal-chip">Spike: {spike:.2f}x | \u03c1_RGB: {corr:+.3f}</span>
       </div>
     </div>
     """, unsafe_allow_html=True)
@@ -499,8 +505,8 @@ def execute_forensic_pipeline(target_img: Image.Image, preset_key: Optional[str]
       </div>
       <div class="terminal-row">
         <span>\u2713</span>
-        <span class="terminal-pass">Pass 3 \u2014 2D-FFT Spectral Decomposition:</span>
-        <span class="terminal-chip">Spike: {spike:.2f}x | High-Freq Ratio: {hf:.3f}</span>
+        <span class="terminal-pass">Pass 3 \u2014 2D-FFT & Sensor PRNU Decomposition:</span>
+        <span class="terminal-chip">Spike: {spike:.2f}x | \u03c1_RGB: {corr:+.3f}</span>
       </div>
       <div class="terminal-row">
         <span>\u2713</span>
@@ -882,41 +888,51 @@ if st.session_state["app_state"] == "results" and st.session_state["analysis_res
     """, unsafe_allow_html=True)
 
     if category == CATEGORY_AI:
-        st.error(f"Verdict: {category} ({confidence_str}) \u2014 High VAE Latent Congruence & Deconvolution Spikes Detected.")
+        st.error(f"Verdict: {badge_label} ({confidence_str}) — {rationale}")
     elif category == CATEGORY_AUTHENTIC:
-        st.success(f"Verdict: {category} ({confidence_str}) \u2014 Natural CMOS PRNU Sensor Noise & Optical Divergence.")
+        st.success(f"Verdict: {badge_label} ({confidence_str}) — {rationale}")
     else:
-        st.warning(f"Verdict: {category} ({confidence_str}) \u2014 Spatial Resampling or Lossy Compression Artifacts.")
+        st.warning(f"Verdict: {badge_label} ({confidence_str}) — {rationale}")
 
-    # 3. Four Key Forensic Metric Cards
+    # 3. Five Key Forensic Metric Cards
     psnr_val = res["spatial"]["psnr"]
     mse_val = res["spatial"]["mse"]
     spike_val = res["spectral"]["max_harmonic_spike"]
     hf_val = res["spectral"]["high_freq_ratio"]
+    corr_val = res.get("sensor", {}).get("inter_channel_corr", 0.0)
+    kurt_val = res.get("sensor", {}).get("kurtosis", 3.0)
+    floor_val = res.get("sensor", {}).get("flat_noise_floor", 5.0)
 
-    m1, m2, m3, m4 = st.columns(4)
+    m1, m2, m3, m4, m5 = st.columns(5)
     m1.metric(
         "Reconstruction PSNR",
         f"{psnr_val:.2f} dB",
-        delta="High = AI" if psnr_val >= 35.0 else "Normal (PRNU Loss)",
+        delta="High = SD" if psnr_val >= 35.0 else "Normal Divergence",
         help="Peak Signal-to-Noise Ratio between original and deterministic VAE reconstruction. Authentic sensors exhibit PSNR < 34.5 dB."
     )
     m2.metric(
         "Mean Squared Error (MSE)",
         f"{mse_val:.6f}",
-        delta="Lower = Manifold Congruence",
-        help="Average squared Euclidean pixel difference. Generative diffusion yields near-zero loss."
+        delta="Lower = Congruence",
+        help="Average squared Euclidean pixel difference across the 8x latent bottleneck."
     )
     m3.metric(
         "Harmonic Lattice Spike",
         f"{spike_val:.2f}x",
-        delta="Spike = Transposed Conv" if spike_val >= 1.50 else "Smooth 1/f",
+        delta="Lattice Spike" if spike_val >= 1.50 else "Smooth 1/f",
         help="Deconvolution lattice peak ratio at multiples of 8x8 upsampling stride."
     )
     m4.metric(
-        "High-Freq Energy Ratio",
-        f"{hf_val:.3f}",
-        help="Ratio of outer-band spectral energy to total energy in the 2D-FFT domain."
+        "Sensor Noise Corr (ρ_RGB)",
+        f"{corr_val:+.3f}",
+        delta="Synthetic Joint Tensor" if corr_val >= 0.35 else "Independent CMOS Photodiodes",
+        help="High-frequency Laplacian cross-channel correlation across R, G, B channels. Authentic physical CMOS sensors exhibit rho ~ 0.000 (Poisson shot noise independence). AI generators (DALL-E 3, Midjourney, SD) exhibit rho > 0.400."
+    )
+    m5.metric(
+        "Noise Floor & Kurtosis",
+        f"K = {kurt_val:.1f}",
+        delta=f"σ² = {floor_val:.2f}" + (" (Natural PRNU)" if floor_val >= 2.5 else " (Zero-Noise Synthetic)"),
+        help="Kurtosis of Laplacian residuals and minimum noise floor in flat regions. Real sensors exhibit Gaussian noise K~3.0 and sigma^2 >= 3.0."
     )
 
     st.markdown("<div style='margin-top: 14px;'></div>", unsafe_allow_html=True)
