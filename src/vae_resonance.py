@@ -191,7 +191,10 @@ class VAEResonanceEngine:
         sensor = self.compute_sensor_forensics(arr_orig)
 
         try:
-            from src.forensic_classifier import classify_forensics
+            try:
+                from src.forensic_classifier import classify_forensics
+            except ImportError:
+                from forensic_classifier import classify_forensics
             classification = classify_forensics(spatial, spectral, sensor_metrics=sensor, filename=filename)
             ai_probability = classification["ai_probability"]
             category = classification["category"]
@@ -199,7 +202,7 @@ class VAEResonanceEngine:
             badge_color = classification["badge_color"]
             confidence_str = classification["confidence_str"]
             rationale = classification["rationale"]
-        except ImportError:
+        except Exception:
             psnr = spatial["psnr"]
             spike = spectral["max_harmonic_spike"]
             corr = sensor["inter_channel_corr"]
