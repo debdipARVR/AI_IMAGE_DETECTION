@@ -1,16 +1,19 @@
 # Latent Resonance: Zero-Shot Autoencoder Inversion and Azimuthal Spectral Forensics for Diffusion Image Attribution
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Hugging Face Dataset](https://img.shields.io/badge/%F0%9F%A4%97%20Hugging%20Face-Dataset%20(N=100)-FFD21E.svg)](https://huggingface.co/datasets/DebdipCS/Latent-Resonance-AI-Image-Forensics-Benchmark-N100)
 [![Open Source](https://img.shields.io/badge/Open--Source-100%25-brightgreen.svg)]()
 [![Clean AUROC](https://img.shields.io/badge/Clean%20AUROC-100.00%25-blue.svg)]()
 [![Tests](https://img.shields.io/badge/Tests-95%20Passed-success.svg)]()
-[![Effect Size](https://img.shields.io/badge/Cohen's%20d-5.13%20(Huge)-purple.svg)]()
-[![Streamlit Cloud Ready](https://img.shields.io/badge/Streamlit%20Cloud-Ready-FF4B4B.svg)](https://share.streamlit.io/)
+[![Effect Size](https://img.shields.io/badge/Cohen's%20d-6.08%20(Immense)-purple.svg)]()
+[![Streamlit Cloud Live](https://img.shields.io/badge/Streamlit%20Cloud-Live%20App-FF4B4B.svg)](https://scribemarkimage.streamlit.app/)
 
 > **Fully Open-Source Research & Software Artifact**  
 > *Author*: **Debdip Bandyopadhyay** (Independent Researcher, Kolkata, West Bengal, India; M.Tech, IIT Jodhpur, AI & Data Science)  
 > *Email*: debdip1992@outlook.com  
 > *GitHub*: [https://github.com/debdipARVR/AI_IMAGE_DETECTION](https://github.com/debdipARVR/AI_IMAGE_DETECTION)  
+> *Hugging Face Benchmark Dataset*: [DebdipCS/Latent-Resonance-AI-Image-Forensics-Benchmark-N100](https://huggingface.co/datasets/DebdipCS/Latent-Resonance-AI-Image-Forensics-Benchmark-N100)  
+> *Live Streamlit App*: [https://scribemarkimage.streamlit.app/](https://scribemarkimage.streamlit.app/)  
 > *Paper PDF*: [`paper/paper.pdf`](paper/paper.pdf) | *Overleaf Bundle*: [`OVERLEAF_LATENT_RESONANCE_IEEE_PAPER.zip`](OVERLEAF_LATENT_RESONANCE_IEEE_PAPER.zip)
 
 ---
