@@ -34,23 +34,42 @@ if SRC_DIR not in sys.path:
     sys.path.insert(0, SRC_DIR)
 
 # Forensic Engine & Helper Imports
-from src.vae_resonance import VAEResonanceEngine
-from src.forensic_classifier import (
-    classify_forensics,
-    extract_sensor_prnu_forensics,
-    CATEGORY_AUTHENTIC,
-    CATEGORY_AI,
-    CATEGORY_MANIPULATED,
-    COLOR_AUTHENTIC,
-    COLOR_AI,
-    COLOR_MANIPULATED
-)
-from src.preset_cache import load_preset_sample
-from src.visualizer import (
-    generate_residual_heatmap,
-    annotate_fft_spectrum,
-    create_parchment_radial_plot
-)
+try:
+    from src.vae_resonance import VAEResonanceEngine
+    from src.forensic_classifier import (
+        classify_forensics,
+        extract_sensor_prnu_forensics,
+        CATEGORY_AUTHENTIC,
+        CATEGORY_AI,
+        CATEGORY_MANIPULATED,
+        COLOR_AUTHENTIC,
+        COLOR_AI,
+        COLOR_MANIPULATED
+    )
+    from src.preset_cache import load_preset_sample
+    from src.visualizer import (
+        generate_residual_heatmap,
+        annotate_fft_spectrum,
+        create_parchment_radial_plot
+    )
+except ImportError:
+    from vae_resonance import VAEResonanceEngine
+    from forensic_classifier import (
+        classify_forensics,
+        extract_sensor_prnu_forensics,
+        CATEGORY_AUTHENTIC,
+        CATEGORY_AI,
+        CATEGORY_MANIPULATED,
+        COLOR_AUTHENTIC,
+        COLOR_AI,
+        COLOR_MANIPULATED
+    )
+    from preset_cache import load_preset_sample
+    from visualizer import (
+        generate_residual_heatmap,
+        annotate_fft_spectrum,
+        create_parchment_radial_plot
+    )
 
 # PDF Certificate Generator with graceful fallback
 try:
