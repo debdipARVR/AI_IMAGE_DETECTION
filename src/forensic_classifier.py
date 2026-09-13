@@ -106,7 +106,9 @@ def classify_forensics(
     spectral_metrics: Dict[str, Any],
     sensor_metrics: Optional[Dict[str, Any]] = None,
     filename: Optional[str] = None,
-    orig_dimensions: Optional[Any] = None
+    orig_dimensions: Optional[Any] = None,
+    *args,
+    **kwargs
 ) -> Dict[str, Any]:
     """
     Calibrated multi-signal forensic decision logic classifying images into 3 distinct provenance categories:

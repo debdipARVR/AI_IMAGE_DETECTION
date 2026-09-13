@@ -71,6 +71,16 @@ except ImportError:
         create_parchment_radial_plot
     )
 
+# Force module reload in persistent environments (Streamlit Cloud hot-reload)
+import importlib
+try:
+    if "src.forensic_classifier" in sys.modules:
+        importlib.reload(sys.modules["src.forensic_classifier"])
+    if "forensic_classifier" in sys.modules:
+        importlib.reload(sys.modules["forensic_classifier"])
+except Exception:
+    pass
+
 # PDF Certificate Generator with graceful fallback
 try:
     from src.pdf_certificate import generate_forensic_certificate
@@ -457,7 +467,10 @@ def execute_forensic_pipeline(target_img: Image.Image, preset_key: Optional[str]
             sensor = extract_sensor_prnu_forensics(target_img)
             res["sensor"] = sensor
         orig_dims = (target_img.width, target_img.height) if hasattr(target_img, "width") else None
-        clf = classify_forensics(res["spatial"], res["spectral"], sensor_metrics=sensor, filename=img_name, orig_dimensions=orig_dims)
+        try:
+            clf = classify_forensics(res["spatial"], res["spectral"], sensor_metrics=sensor, filename=img_name, orig_dimensions=orig_dims)
+        except TypeError:
+            clf = classify_forensics(res["spatial"], res["spectral"], sensor_metrics=sensor, filename=img_name)
         res["category"] = clf["category"]
         res["verdict"] = clf["category"]
         res["badge_label"] = clf["badge_label"]
